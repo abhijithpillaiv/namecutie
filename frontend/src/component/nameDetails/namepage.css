@@ -1,0 +1,14 @@
+.namepageheader{
+    display: block;
+    width: 98%;
+    margin: auto;
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 14pt;
+}
+.name{
+    color: #333;
+    font-weight: bolder;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}

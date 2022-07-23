@@ -1,0 +1,9 @@
+.side{
+    padding-top: 15px;
+    text-align: center;
+    border-color: #f3d6d6;
+    cursor: grab;
+}
+.side td:hover{
+    color: blue;
+}

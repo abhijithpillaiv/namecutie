@@ -1,0 +1,46 @@
+.by-letter {
+    margin: 1em 0;
+    overflow: hidden;
+    color: blue;
+    cursor: grab;
+  }
+  
+  .by-letter span {
+    border: 1px solid #f3d6d6;
+    border-radius: 3px;
+    display: block;
+    float: left;
+    line-height: 1;
+    margin: 0 .6% .6% 0;
+    padding: 5px 0 4px;
+    text-align: center;
+    text-decoration: none;
+    width: 10.49%
+  }
+  
+  @media screen and (min-width: 768px) {
+    .by-letter span {
+      width: 7.092307692%;
+      padding: 4px 0 3px
+    }
+  }
+  
+  @media screen and (min-width: 980px) {
+    .by-letter span {
+      padding: 3px 0 2px
+    }
+  }
+  
+  .by-letter span:hover {
+    background: #188CB4;
+    border-color: #188CB4;
+    color: #FFFFFF
+  }
+  
+  .by-letter span.active {
+    background: #188CB4;
+    border-color: #188CB4;
+    color: #FFFFFF;
+    cursor: default
+  }
+  

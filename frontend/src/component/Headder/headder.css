@@ -1,0 +1,24 @@
+.head{
+	font-family: "Comfortaa", sans-serif;
+	position: relative;
+  padding: 10px;
+  font-size:large;
+}
+.brand{
+  font-family: "Comfortaa", sans-serif;
+  padding: 10px;
+  text-align: center;
+  font-size: large;
+  color: red;
+}
+.head-down{
+  background-color: rgb(65, 166, 255);
+  text-align: center;
+
+}
+.letter{
+  cursor:grab;
+  color: white;
+  text-shadow: 10px;
+  text-decoration: inherit;
+}
