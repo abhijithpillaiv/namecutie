@@ -18,7 +18,10 @@
 }
 .letter{
   cursor:grab;
-  color: white;
+  color: whitesmoke;
   text-shadow: 10px;
   text-decoration: inherit;
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
 }

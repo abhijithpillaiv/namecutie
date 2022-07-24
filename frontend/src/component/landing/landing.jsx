@@ -5,6 +5,7 @@ import Side from "../side/side";
 import Strip from "../strip/strip";
 import Fotter from "../fotter/fotter";
 import Search from "../search/search";
+import Notice from '../notice/notice'
 import './landing.css'
 import logo from '../../static/logo.png'
 import { useState } from "react";
@@ -27,18 +28,21 @@ function Landing() {
           <Headder setmid={setmid} />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-10 col-sm-8">
+        <div className="col-lg-4 col-sm-4">
+          <Notice/>
+          </div>
+          <div className="col-lg-6 col-sm-5">
           <Strip setmid={setmid} />
           </div>
-          <div className="col-lg-2 col-sm-4">
+          <div className="col-lg-2 col-sm-3">
           <Search/>
           </div>
         </div>
         <div className="row">
-          <div className="col-2">
+          <div className="col-2 ">
           <Side setmid={setmid} />
           </div>
-          <div className="col-10">
+          <div className="col-10 ">
            <Mid mid={mid}/>
           </div>
         </div>

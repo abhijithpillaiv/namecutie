@@ -8,7 +8,47 @@
 }
 .name{
     color: #333;
-    font-weight: bolder;
+    font-weight: 1000;
     padding-top: 10px;
+    padding-bottom: 50px;
+    padding-left: 25px;
+}
+.meaning,.gender,.origin{
+    color: black;
+    text-align: left;
+    margin-left: 10px;
     padding-bottom: 20px;
+}
+.heart{
+    margin-left: 100px;
+}
+.image{
+    height: 25px;
+    width: auto;
+    padding-left: 50px;
+    cursor: pointer;
+}
+.imagelovefalse{
+    height: 32px;
+    width: auto;
+    padding-left: 50px;
+    cursor: pointer;
+}
+.lovecount{
+    font-weight: 50;
+    padding-left: 10px;
+    color: #333;
+}
+.suggestion{
+    height: 20px;
+    width: auto;
+}
+.sugg{
+    padding-top: 50px;
+    padding-bottom: 50PX;
+    font-weight:400;
+
+}
+.ans{
+    font-weight: lighter;
 }

@@ -17,10 +17,10 @@ export default function Headder({setmid}) {
         <Link to={{pathname:'/nameOf/unisex'}} ><span className="letter">Unisex</span></Link>          
         </div>
         <div className="head col-2">
-        <Link to={{pathname:'/blog'}}><span className="letter">Blogs</span></Link>           
+        <Link to={{pathname:'/blog'}}><span style={{paddingLeft:'10px'}} className="letter">Blogs</span></Link>           
         </div>
-        <div className="head col-2">
-        <Link to={{pathname:'/names/mostLiked'}}><span className="letter">Most liked names</span></Link>           
+        <div className="head col-4">
+        <Link to={{pathname:'/names/mostLiked'}}><span className="letter">Most liked</span></Link>           
         </div>
       </div>
     </div>

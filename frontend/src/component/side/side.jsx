@@ -1,6 +1,5 @@
 import React from "react";
 import "./side.css";
-
 export default function side({setmid}) {
   return (
     <div className="side">
