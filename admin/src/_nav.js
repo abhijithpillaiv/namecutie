@@ -1,17 +1,12 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
+  cilReload,
   cilNotes,
-  cilPencil,
-  cilPuzzle,
   cilSpeedometer,
-  cilStar,
+  cilBaby,
+  cilPen,
+  cilChart
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -34,25 +29,25 @@ const _nav = [
     component: CNavItem,
     name: 'Add new name',
     to: '/names/addName',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Boys',
-    to: '/names/editName',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    to: '/names/boys',
+    icon: <CIcon icon={cilBaby} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Girls',
-    to: '/names/editName',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    to: '/names/girls',
+    icon: <CIcon icon={cilBaby} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Unisex',
-    to: '/names/editName',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    to: '/names/unisex',
+    icon: <CIcon icon={cilBaby} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
@@ -62,13 +57,13 @@ const _nav = [
     component: CNavItem,
     name: 'Add Blog',
     to: '/blogs/addBlog',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Edit blog',
     to: '/blogs/editBlogs',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
@@ -78,15 +73,19 @@ const _nav = [
     component: CNavItem,
     name: 'Add new feed',
     to: '/notice/addNotice',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Edit Notice',
     to: '/notice/editNotice',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilReload} customClassName="nav-icon" />,
   },
-  
+  {
+    component: CNavTitle,
+    name: 'Ads',
+    to: '/ads',
+  },
 ]
 
 export default _nav

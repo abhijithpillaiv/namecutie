@@ -21,35 +21,35 @@ import {
     CTableRow,
 } from '@coreui/react'
 import {
-    cilCalculator,
-    cilChartPie,
-    cilCursor,
-    cilDescription,
-    cilDrop,
-    cilNotes,
-    cilPencil,
-    cilPuzzle,
-    cilSpeedometer,
-    cilStar,
+    cilHeart,
+    cilPen,
+    cilX,
 } from '@coreui/icons'
 const Name = ({ gender, props }) => {
     useEffect(() => {
         console.log(props);
     }, [props])
 
-
+const editHandler=()=>{
+    console.log('Edit initiated');
+}
+const deleteHandler=()=>{
+    console.log('delete initiated');
+}
     return (
         props ? <CRow>
             <CCard className="mb-0">
                 <CCardBody>
                     <CCol >
-                        <div>{gender}</div>
+                        <div style={{fontFamily:'sans-serif',fontSize:'x-large',textAlign:'center',fontWeight:'bold',color:'blue'}}>{gender}</div>
                         <br />
                         <CTable align="middle" className="mb-0 border" hover responsive>
                             <CTableHead color="light">
                                 <CTableRow>
                                     <CTableHeaderCell>Name</CTableHeaderCell>
-                                    <CTableHeaderCell className="text-center">Meaning</CTableHeaderCell>
+                                    <CTableHeaderCell >Meaning</CTableHeaderCell>
+                                    <CTableHeaderCell >Total likes</CTableHeaderCell>
+                                    <CTableHeaderCell >Edit/Delete</CTableHeaderCell>
                                 </CTableRow>
                             </CTableHead>
                             <CTableBody>
@@ -63,6 +63,18 @@ const Name = ({ gender, props }) => {
                                         <CTableDataCell>
                                             <strong>{item.meaning}</strong>
                                         </CTableDataCell>
+
+                                        <CTableDataCell>
+                                            <CIcon icon={cilHeart} size='sm' />
+                                            <span style={{fontSize:'small'}}>   200</span>
+                                        </CTableDataCell>
+
+                                        <CTableDataCell>
+                                            <CIcon onClick={editHandler} style={{color: "blue",cursor:'pointer'}} icon={cilPen} size='lg' />
+                                            <CIcon onClick={deleteHandler} style={{color: "red",cursor:'pointer',marginLeft:'20px'}}  icon={cilX} size='lg' />
+                                        </CTableDataCell>
+
+                                    
                                     </CTableRow>
                                 ))}
                             </CTableBody>

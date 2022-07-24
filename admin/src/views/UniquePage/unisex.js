@@ -1,7 +1,7 @@
 import React from 'react'
 import Name from '../section/Name'
 
-const Dashboard = () => {
+const Unisex = () => {
   const tableExample = [
     {
         name: 'Yiorgos Avraamu',
@@ -15,11 +15,9 @@ const Dashboard = () => {
 
   return (
     <>
-    <Name gender={'BOYS'} props={tableExample}/>
-    <Name gender={'Girls'} props={tableExample}/>
-    <Name gender={'Unisex'} props={tableExample}/>
+    <Name gender={'UNISEX'} props={tableExample}/>
     </>
   )
 }
 
-export default Dashboard
+export default Unisex
