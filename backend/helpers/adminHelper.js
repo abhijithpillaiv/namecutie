@@ -75,7 +75,7 @@ module.exports = {
         return new promise(async (resolve, reject) => {
             try {
                 db.get().collection(collection.blog).insertOne(data).then((data) => {
-                    resolve('Blog added Sucessfully')
+                    resolve(data._id)
                 })
             } catch (error) {
                 resolve(error)
@@ -84,7 +84,7 @@ module.exports = {
     },
 
     // Edit Blog
-    addAbout: (data) => {
+    editBlog: (data) => {
         return new promise(async (resolve, reject) => {
             try {
                 let about = await db.get().collection(collection.blog).find().toArray()
@@ -120,7 +120,7 @@ module.exports = {
         return new promise(async (resolve, reject) => {
             try {
                 db.get().collection(collection.name).insertOne(data).then((data) => {
-                    resolve('Name added Sucessfully')
+                    resolve(data._id)
                 })
             } catch (error) {
                 resolve(error)
@@ -156,6 +156,7 @@ module.exports = {
         })
     },
 
+
     ////////////////////////////////////////////////// section message
 
     // Get Message
@@ -181,7 +182,7 @@ module.exports = {
         return new promise(async (resolve, reject) => {
             try {
                 db.get().collection(collection.notice).insertOne(data).then((data) => {
-                    resolve('Notice added Sucessfully')
+                    resolve(data._id)
                 })
             } catch (error) {
                 resolve(error)

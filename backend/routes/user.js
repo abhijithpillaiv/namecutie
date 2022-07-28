@@ -1,5 +1,5 @@
 var express = require('express');
-const recipeHelper = require('../helpers/recipeHelper');
+const userHelper = require('../helpers/userHelper');
 var router = express.Router();
 var userHelper = require("../helpers/userHelper")
 const nodemailer = require("nodemailer");
@@ -11,43 +11,56 @@ const fs = require("fs")
 
 // Get all Names
 
-router.get('/names',((req,res)=>{
-  recipeHelper.getNames().then((response)=>{
+router.get('/getNames',((req,res)=>{
+  userHelper.getName().then((response)=>{
+    res.send(response)
+  })
+}))
+
+// Get single name
+router.get('/getNames/:id',((req,res)=>{
+  userHelper.getSingleName(req.params.id).then((response)=>{
     res.send(response)
   })
 }))
 
 // Get Blog
-router.get('/blog',((req,res)=>{
+router.get('/getBlog',((req,res)=>{
   userHelper.getBlog().then((response)=>{
+    res.send(response)
+  })
+}))
+// Get single Blog
+router.get('/getBlog/:id',((req,res)=>{
+  userHelper.getSingleBlog(req.params.id).then((response)=>{
     res.send(response)
   })
 }))
 
 // Get  Notice
-router.get('/notice',((req,res)=>{
+router.get('/getNotice',((req,res)=>{
   userHelper.getNotice().then((response)=>{
     res.send(response)
   })
 }))
 
 // Set message
-router.post('/message',((req,res)=>{
+router.post('/setMessage',((req,res)=>{
   userHelper.setMessage(req.body).then((response)=>{
     res.send(response)
   })
 }))
 
 // Get Ads
-router.get('/ads',((req,res)=>{
+router.get('/getAds',((req,res)=>{
   userHelper.getAds().then((response)=>{
     res.send(response)
   })
 }))
 
 // Add like
-router.post('/like',((req,res)=>{
-  userHelper.setLike(req.body).then((response)=>{
+router.post('/like/:id',((req,res)=>{
+  userHelper.setLike(req.params.id).then((response)=>{
     res.send(response)
   })
 }))

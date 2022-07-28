@@ -16,6 +16,15 @@ module.exports = {
         })
     },
 
+    // Get single name
+    getSingleName: (id) => {
+        return new promise(async (resolve, reject) => {
+            let Name = await db.get().collection(collection.name).findOne({_id:ObjectID(id)}).toArray()
+            resolve(Name);
+        })
+    },
+
+
     // Get Blog
     getBlog: () => {
         return new promise(async (resolve, reject) => {
@@ -23,6 +32,13 @@ module.exports = {
             resolve(Blog)
         })
     },
+        // Get single blog
+        getSingleBlog: (id) => {
+            return new promise(async (resolve, reject) => {
+                let blog = await db.get().collection(collection.blog).findOne({_id:ObjectID(id)}).toArray()
+                resolve(blog);
+            })
+        },
 
     // Set message
     setMessage: (data) => {
@@ -50,12 +66,12 @@ module.exports = {
     },
 
     // like
-    setLike: (data) => {
+    setLike: (id) => {
         return new promise(async (resolve, reject) => {
             try {
-               let name= await db.get().collection(collection.name).findOne({_id:ObjectID(data.id)});
+               let name= await db.get().collection(collection.name).findOne({_id:ObjectID(id)});
                var old_like=name.like;
-                db.get().collection(collection.name).updateOne({ "_id": ObjectID(data.id) }, {
+                db.get().collection(collection.name).updateOne({ "_id": ObjectID(id) }, {
                     $set: {
                         like:old_like+1
                     }
