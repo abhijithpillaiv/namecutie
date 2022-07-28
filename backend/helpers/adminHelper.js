@@ -45,143 +45,118 @@ module.exports = {
         })
     },
     //Update password
-    updatePass:(id,pass)=>{
+    updatePass: (id, pass) => {
         return new promise(async (resolve, reject) => {
             var password = await bcrypt.hash(pass, 10)
-            await db.get().collection(collection.user).updateOne({'_id':ObjectID(id)},
-            { $set: { "password" : password } })
+            await db.get().collection(collection.user).updateOne({ '_id': ObjectID(id) },
+                { $set: { "password": password } })
             resolve()
         })
     },
-     // Get Admin
-     getAdmin: (data) => {
+    // Get Admin
+    getAdmin: (data) => {
         return new Promise(async (resolve, reject) => {
-                let user = await db.get().collection(collection.admin).findOne({ 'email': data })
-                if (user == null) {
-                    resolve(false)
-                }
-                else {
-                    resolve(user._id)
-                }
+            let user = await db.get().collection(collection.admin).findOne({ 'email': data })
+            if (user == null) {
+                resolve(false)
+            }
+            else {
+                resolve(user._id)
+            }
         })
 
     },
 
-    // Add About
+    //////////////////////////////////////////////// section blog
+
+
+    // Add new Blog
+    addBlog: (data) => {
+        return new promise(async (resolve, reject) => {
+            try {
+                db.get().collection(collection.blog).insertOne(data).then((data) => {
+                    resolve('Blog added Sucessfully')
+                })
+            } catch (error) {
+                resolve(error)
+            }
+        })
+    },
+
+    // Edit Blog
     addAbout: (data) => {
         return new promise(async (resolve, reject) => {
             try {
-                let about = await db.get().collection(collection.about).find().toArray()
-                if (about.length != 0) {
-                    db.get().collection(collection.about).updateOne({ "_id": ObjectID(data.id) }, {
-                        $set: {
-                            mbTitle: data.mbTitle,
-                            mbDes: data.mbDes,
-
-                            sb1Title: data.sb1Title,
-                            sb1Des: data.sb1Des,
-
-                            sb2Title: data.sb2Title,
-                            sb2Des: data.sb2Des,
-
-                            sb3Title: data.sb3Title,
-                            sb3Des: data.sb3Des,
-                        }
-                    }).then(() => {
-                        resolve("About Updated Sucessfully")
-                    })
-                } else {
-                    db.get().collection(collection.about).insertOne(data).then(() => {
-                        resolve('New About added sucessfully')
-                    })
-                }
+                let about = await db.get().collection(collection.blog).find().toArray()
+                db.get().collection(collection.blog).updateOne({ "_id": ObjectID(data.id) }, {
+                    $set: {
+                        title: data.title,
+                        des: data.des,
+                        content: data.content,
+                    }
+                }).then(() => {
+                    resolve("blog Updated Sucessfully")
+                })
             } catch (error) {
                 resolve(error)
             }
 
         })
     },
-    // Add new Item
-    addItem: (data) => {
+    //delete blog
+    deleteBlog: (id) => {
+        return new Promise(async (resolve, reject) => {
+            // Remove blog
+            db.get().collection(collection.blog).removeOne({ _id: ObjectID(id) }).then((response) => {
+                resolve("blog removed sucessfully")
+            })
+        })
+    },
+
+    //////////////////////////////////////////// section name
+
+    // Add new Name
+    addName: (data) => {
         return new promise(async (resolve, reject) => {
             try {
-                db.get().collection(collection.item).insertOne(data).then((data) => {
-                    resolve('Item added Sucessfully')
+                db.get().collection(collection.name).insertOne(data).then((data) => {
+                    resolve('Name added Sucessfully')
                 })
             } catch (error) {
                 resolve(error)
             }
         })
     },
-    // Edit item
-    EditItem: (data) => {
+    // Edit name
+    editName: (data) => {
         return new promise(async (resolve, reject) => {
             try {
-                db.get().collection(collection.item).updateOne({ "_id": ObjectID(data.id) }, {
+                db.get().collection(collection.name).updateOne({ "_id": ObjectID(data.id) }, {
                     $set: {
                         name: data.name,
-                        price: data.price,
-
-                        des: data.des,
-                        image:data.image,
-                        history: data.history,
+                        gender: data.gender,
+                        meaning: data.meaning,
+                        ethni: data.ethni,
+                        like:data.like,
                     }
                 }).then((data) => {
-                    resolve('Item updated Sucessfully')
+                    resolve('name updated Sucessfully')
                 })
             } catch (error) {
                 resolve(error)
             }
         })
     },
-    //delete item
-    deleteItem: (id) => {
-        return new Promise(async(resolve, reject) => {
-            // Remove item from cart 
-           await db.get().collection(collection.cart).updateMany({"product.item":ObjectID(id)},{
-                $pull: { product: { item:ObjectID(id)} }         
-            })
-            // Remove item
-            db.get().collection(collection.item).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("Removed Sucessfully")
+    //delete name
+    deleteName: (id) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.name).removeOne({ _id: ObjectID(id) }).then((response) => {
+                resolve("name removed sucessfully")
             })
         })
     },
 
-       // Purchase  History
-       itemHistory: (datas) => {
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
-        var newdate = day + "/" + month + "/" + year;
-        var temp={date:null,_id:null,name:null,data:{},};
-        var name =''
-        return new promise(async (resolve, reject) => {
-            try {
-                console.log(datas);
-                // Insert item Purchase history
-                datas.data.map((obj)=>{ db.get().collection(collection.item).updateOne({ "_id": ObjectID(obj.item) }, {
-                    $push:{'history':{'date':newdate,'customerId':obj._id,'amount':obj.quantity}}
-                }).then()})
-                // Get Name of the user
-                db.get().collection(collection.cart).findOne({'_id':ObjectID(datas.data[0]._id)}).then((res)=>{
-                    db.get().collection(collection.user).findOne({'_id':ObjectID(res.user)}).then((resp)=>name=resp.name)
-                })
-                // Insert Purchase History
-                    temp.name=name
-                    temp.date=newdate;
-                    temp.data=datas
-                db.get().collection(collection.purchase).insertOne(temp).then()
-                //Remove cart
-                db.get().collection(collection.cart).removeOne({_id:ObjectID(datas.data[0]._id)}).then()
-                
-                resolve()
-            } catch (error) {
-                resolve(error)
-            }
-        })
-    },
+    ////////////////////////////////////////////////// section message
 
     // Get Message
     getMessage: () => {
@@ -190,68 +165,92 @@ module.exports = {
             resolve(message)
         })
     },
-    dltMsg: (id) => {
+    // Delete message
+    deleteMsg: (id) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.message).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("Removed Sucessfully")
+                resolve("message removed Sucessfully")
             })
         })
     },
 
-    // Get User
-    getUser: () => {
+    /////////////////////////////////////////////// section notice
+
+    // Add new Notice
+    addNotice: (data) => {
         return new promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.user).find().toArray()
-            resolve(user)
+            try {
+                db.get().collection(collection.notice).insertOne(data).then((data) => {
+                    resolve('Notice added Sucessfully')
+                })
+            } catch (error) {
+                resolve(error)
+            }
         })
     },
-      // Get One User
-      getOneUser: (id) => {
+    // Edit notice
+    editNotice: (data) => {
         return new promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.user).findOne({'_id':ObjectID(id)})
-            resolve(user)
+            try {
+                db.get().collection(collection.notice).updateOne({ "_id": ObjectID(data.id) }, {
+                    $set: {
+                        title: data.title,
+                        content: data.content,
+                    }
+                }).then((data) => {
+                    resolve('notice updated Sucessfully')
+                })
+            } catch (error) {
+                resolve(error)
+            }
         })
     },
-          // Delete User
-          deleteUser: (id) => {
-            return new promise(async (resolve, reject) => {
-                await db.get().collection(collection.user).removeOne({'_id':ObjectID(id)}).then((resolve()))
-                
+    //delete notice
+    deleteNotice: (id) => {
+        return new Promise(async (resolve, reject) => {
+            // Remove notice
+            db.get().collection(collection.notice).removeOne({ _id: ObjectID(id) }).then((response) => {
+                resolve("notice removed sucessfully")
             })
-        },
-
-    // Get Orders
-    getOrders: () => {
-        return new promise(async (resolve, reject) => {
-            let order = await db.get().collection(collection.order).find().toArray()
-            resolve(order)
         })
     },
 
-    // Get Purchase details
-    getpurchase: () => {
-        return new promise(async (resolve, reject) => {
-            let data = await db.get().collection(collection.purchase).find().toArray()
-            resolve(data)
-        })
-    },
+    ///////////////////////////////////////// section ads
 
-    // dashboard
-    dashboard:()=>{
-        data={product:0,users:0,recipes:0}
+     // Add new Ads
+     addAds: (data) => {
         return new promise(async (resolve, reject) => {
-            data.product = await db.get().collection(collection.item).find().count()
-            data.users = await db.get().collection(collection.user).find().count()
-            data.recipes = await db.get().collection(collection.recipes).find().count()
-            resolve(data) 
+            try {
+                db.get().collection(collection.Ads).insertOne(data).then((data) => {
+                    resolve('Ads added Sucessfully')
+                })
+            } catch (error) {
+                resolve(error)
+            }
         })
     },
-    updatePass:(id,pass)=>{
+    // Edit Ads
+    editAds: (data) => {
         return new promise(async (resolve, reject) => {
-            var password = await bcrypt.hash(pass, 10)
-            await db.get().collection(collection.admin).updateOne({'_id':ObjectID(id)},
-            { $set: { "password" : password } })
-            resolve()
+            try {
+                db.get().collection(collection.Ads).updateOne({ "_id": ObjectID(data.id) }, {
+                    $set: {
+                        url: data.url
+                    }
+                }).then((data) => {
+                    resolve('Ads updated Sucessfully')
+                })
+            } catch (error) {
+                resolve(error)
+            }
+        })
+    },
+    //delete Ads
+    deleteAds: (id) => {
+        return new Promise(async (resolve, reject) => {
+            db.get().collection(collection.Ads).removeOne({ _id: ObjectID(id) }).then((response) => {
+                resolve("Ads removed sucessfully")
+            })
         })
     },
 

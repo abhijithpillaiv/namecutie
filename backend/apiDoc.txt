@@ -1,0 +1,24 @@
+blog
+    title
+    des
+    content
+
+name
+    name
+    gender
+    meaning
+    ethni
+    like
+
+message
+    name
+    email
+    sub
+    content
+
+notice
+    title
+    content
+
+ads
+    url

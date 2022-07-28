@@ -3,11 +3,13 @@ module.exports={
     port:'https://abcchoice.cafe/',
     portAdmin:'https://abcchoice.cafe/admin',
 
-    item:'item',
-    recipes:'recipes',
-    about:'about',
+    name:'name',
+    blog:'blog',
     message:'message',
-    cart:'cart',
+    notice:'notice',
+    Ads:'ads',
+
+
     user:'users',
     purchase:'purchase',
 
