@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Name from '../section/Name'
+import Lodr from '../section/lodr'
+import axios from 'axios'
+import collection from '../../assets/collection'
 
 const Boys = () => {
-  const tableExample = [
-    {
-        name: 'Yiorgos Avraamu',
-        meaning: 'nice name'
-    },
-    {
-      name: 'Yiorgos Avraamu',
-      meaning: 'nice name'
-  },
-  ]
+  const [databoy, setdataboy] = useState(null)
+  const getData=()=>{
+    axios.get(collection.port+'api/admin/getNames/Boy').then((res)=>{
+      setdataboy(res)
+    })
+  }
+
+  React.useEffect(() => getData(), []);
 
   return (
     <>
-    <Name gender={'BOYS'} props={tableExample}/>
+    {databoy?<Name gender={'BOYS'} props={databoy.data}/>:<Lodr/>}
     </>
   )
 }

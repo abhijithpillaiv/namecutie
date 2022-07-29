@@ -118,6 +118,7 @@ module.exports = {
     // Add new Name
     addName: (data) => {
         return new promise(async (resolve, reject) => {
+            console.log(data);
             try {
                 db.get().collection(collection.name).insertOne(data).then((data) => {
                     resolve(data._id)

@@ -1,5 +1,4 @@
 var express = require('express');
-const userHelper = require('../helpers/userHelper');
 var router = express.Router();
 var userHelper = require("../helpers/userHelper")
 const nodemailer = require("nodemailer");
@@ -11,8 +10,15 @@ const fs = require("fs")
 
 // Get all Names
 
-router.get('/getNames',((req,res)=>{
+router.get('/getNames/:gender',((req,res)=>{
   userHelper.getName().then((response)=>{
+    res.send(response)
+  })
+}))
+// Get Names by alphabet
+
+router.get('/getNames/alphabet/:char',((req,res)=>{
+  userHelper.getNameAlpha(req.params.char).then((response)=>{
     res.send(response)
   })
 }))

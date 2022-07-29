@@ -9,17 +9,24 @@ const { response } = require('express');
 module.exports = {
     
     // Name
-    getName: () => {
+    getName: (gender) => {
         return new promise(async (resolve, reject) => {
-            let Name = await db.get().collection(collection.name).find().toArray()
+            let Name = await db.get().collection(collection.name).find({'gender': gender}).toArray()
             resolve(Name)
         })
     },
+        // Name by alphabet
+        getNameAlpha: (char) => {
+            return new promise(async (resolve, reject) => {
+                let Name = await db.get().collection(collection.name).find({"name": {$regex: '^' + char, $options: 'i'}}).toArray()
+                resolve(Name)
+            })
+        },
 
     // Get single name
     getSingleName: (id) => {
         return new promise(async (resolve, reject) => {
-            let Name = await db.get().collection(collection.name).findOne({_id:ObjectID(id)}).toArray()
+            let Name = await db.get().collection(collection.name).findOne({_id:ObjectID(id)})
             resolve(Name);
         })
     },

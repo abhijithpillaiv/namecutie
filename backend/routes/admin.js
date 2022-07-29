@@ -1,13 +1,12 @@
 var express = require('express');
 const fs = require("fs")
 var router = express.Router();
-var userHelper = require('../helpers/userHelper')
+const userHelper = require('../helpers/userHelper')
 var adminHelper = require('../helpers/adminHelper')
 var collection = require("../config/collection");
 var jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 var handlebars = require('handlebars');
-const userHelper = require('../helpers/userHelper');
 
 
 //////////////////////////////////////// Section name
@@ -35,16 +34,23 @@ router.get('/deleteName/:id', function (req, res) {
     res.json(error)
   }
 });
-// Get all Names
+// Get Names
 
-router.get('/getNames',((req,res)=>{
-  userHelper.getName().then((response)=>{
+router.get('/getNames/:gender',((req,res)=>{
+  userHelper.getName(req.params.gender).then((response)=>{
+    res.send(response)
+  })
+}))
+// Get Names by alphabet
+
+router.get('/getNames/alphabet/:char',((req,res)=>{
+  userHelper.getNameAlpha(req.params.char).then((response)=>{
     res.send(response)
   })
 }))
 
 // Get single name
-router.get('/getNames/:id',((req,res)=>{
+router.get('/getName/:id',((req,res)=>{
   userHelper.getSingleName(req.params.id).then((response)=>{
     res.send(response)
   })

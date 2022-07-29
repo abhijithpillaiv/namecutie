@@ -29,30 +29,35 @@ api code/doc
 
         Name
 
-                /api/admin/addName :
+                /api/admin/addName (post) :
 
-                                    ip :: name(string),meaning(string),gender(male,female,unisex),ethni(array),like {json data}
+                                    ip :: name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like {json data}
                                     op :: _id
 
-                /api/admin/editName :
+                /api/admin/editName (post) :
 
-                                    ip :: name(string),meaning(string),gender(male,female,unisex),ethni(array),like,id=_id {json data}
+                                    ip :: name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,id=_id {json data}
                                     op :: success message (string)
 
-                /api/admin/deleteName/:id :
+                /api/admin/deleteName/:id (get) :
 
                                     ip :: params.id(auto generated)
                                     op :: success message
 
-                /api/admin/getNames :
+                /api/admin/getNames/:Gender (get) :
 
-                                    ip :: null
-                                    op :: All names {name(string),meaning(string),gender(male,female,unisex),ethni(array),like,_id} (array)
+                                    ip :: gender(auto generated)
+                                    op :: names with specific gender {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (array)
 
-                /api/admin/getNames/:id :
+                /api/admin/getNames/:Char (get) :
+
+                                    ip :: char(auto generated)
+                                    op :: names with specific char {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (array)
+
+                /api/admin/getName/:id (get) :
 
                                     ip :: params.id(auto generated)
-                                    op :: single name with _id=params.id {name(string),meaning(string),gender(male,female,unisex),ethni(array),like,_id} (json)                                   
+                                    op :: single name with _id=params.id {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (json)                                   
 
         Notice
 
@@ -133,13 +138,18 @@ api code/doc
 
         Name
 
-                /api/getNames :
-                                    ip :: null
-                                    op :: All names {name(string),meaning(string),gender(male,female,unisex),ethni(array),like,_id} (array)
+                /api/getNames/:Gender :
+                                    ip :: gender(auto generated)
+                                    op :: names with specific gender {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (array)
 
-                /api/getNames/:id :
+                /api/getName/:id :
                                     ip :: params.id(auto generated)
-                                    op :: single name with _id=params.id {name(string),meaning(string),gender(male,female,unisex),ethni(array),like,_id} (json)                                   
+                                    op :: single name with _id=params.id {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (json)                                   
+
+                /api/admin/getNames/:Char (get) :
+
+                                    ip :: char(auto generated)
+                                    op :: names with specific char {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (array)
 
  
         Blog

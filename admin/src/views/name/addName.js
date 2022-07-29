@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 var xlsx = require('xlsx');
 import { CForm, CRow, CFormLabel, CFormInput, CFormCheck, CButton, CCol } from '@coreui/react';
-const port=null;
-import lodr from '../../assets/logo.png';
+import collection from '../../assets/collection'
+import Lodr from '../section/lodr';
 
 export default function addName() {
 
@@ -44,9 +45,10 @@ export default function addName() {
             for (let j = 0; j < 100; j++) {
                 data[i][j] ? eth.push(data[i][j]): null;
             }
-            axios.post(port+'/api/admin/addName',{
-                'name':data[i].Name,'gender':data[i].Gender,'meaning':data[i].Meaning,'ethni':eth
+            axios.post(collection.port+'api/admin/addName',{
+                'name':data[i].Name,'gender':data[i].Gender,'meaning':data[i].Meaning,'ethni':eth,'like':0
             }).then((response) => {
+                 alert("Names added sucessfully")
                 setprogress(false)
                 //history.push('/addStudent/'+cate)
             })
@@ -54,7 +56,7 @@ export default function addName() {
     }
 
 
-    return progress ? <img src={lodr} alt="loader"></img> :
+    return progress ? <Lodr/> :
         <div>
 
             <CForm>
