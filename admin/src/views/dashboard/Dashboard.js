@@ -15,6 +15,7 @@ const Dashboard = () => {
     })
     axios.get(collection.port+'api/admin/getNames/Girl').then((res)=>{
       setdatagirl(res)
+      console.log(res);
     })
     axios.get(collection.port+'api/admin/getNames/Unisex').then((res)=>{
       setdataunisex(res)

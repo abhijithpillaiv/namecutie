@@ -177,8 +177,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Edit blog',
-    to: '/blogs/editBlogs',
+    name: 'View blog',
+    to: '/blogs/viewBlogs',
     icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
   },
   {
@@ -187,20 +187,25 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Add new feed',
+    name: 'Add new notice',
     to: '/notice/addNotice',
     icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Edit Notice',
-    to: '/notice/editNotice',
+    name: 'View Notice',
+    to: '/notice/viewNotice',
     icon: <CIcon icon={cilReload} customClassName="nav-icon" />,
   },
   {
-    component: CNavTitle,
+    component: CNavItem,
     name: 'Ads',
     to: '/ads',
+  },
+  {
+    component: CNavItem,
+    name: 'Messages',
+    to: '/messages',
   },
 ]
 

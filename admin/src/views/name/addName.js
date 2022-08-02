@@ -4,6 +4,7 @@ var xlsx = require('xlsx');
 import { CForm, CRow, CFormLabel, CFormInput, CFormCheck, CButton, CCol } from '@coreui/react';
 import collection from '../../assets/collection'
 import Lodr from '../section/lodr';
+import InputName from '../section/inputName';
 
 export default function addName() {
 
@@ -41,14 +42,14 @@ export default function addName() {
     const submitHandler = (event) => {
         //event.preventDefault();
         for (let i = 0; i < data.length; i++) {
-            var eth=[];
+            var eth = [];
             for (let j = 0; j < 100; j++) {
-                data[i][j] ? eth.push(data[i][j]): null;
+                data[i][j] ? eth.push(data[i][j]) : null;
             }
-            axios.post(collection.port+'api/admin/addName',{
-                'name':data[i].Name,'gender':data[i].Gender,'meaning':data[i].Meaning,'ethni':eth,'like':0
+            axios.post(collection.port + 'api/admin/addName', {
+                'name': data[i].Name, 'gender': data[i].Gender, 'meaning': data[i].Meaning, 'ethni': eth, 'like': 0
             }).then((response) => {
-                 alert("Names added sucessfully")
+                alert("Names added sucessfully")
                 setprogress(false)
                 //history.push('/addStudent/'+cate)
             })
@@ -56,38 +57,9 @@ export default function addName() {
     }
 
 
-    return progress ? <Lodr/> :
+    return progress ? <Lodr /> :
         <div>
-
-            <CForm>
-                <CRow className="mb-3">
-                    <CFormLabel htmlFor="name" className="col-sm-2 col-form-label">Name</CFormLabel>
-                    <CCol sm={10} >
-                        <CFormInput type="name" id="name" />
-                    </CCol>
-                </CRow>
-                <CRow className="mb-3">
-                    <CFormLabel htmlFor="meaning" className="col-sm-2 col-form-label">Meaning</CFormLabel>
-                    <CCol sm={10} >
-                        <CFormInput type="text" id="meaning" />
-                    </CCol>
-                </CRow>
-                <CRow className="mb-3">
-                    <CFormLabel htmlFor="origin" className="col-sm-2 col-form-label">Origin</CFormLabel>
-                    <CCol sm={5} >
-                        <CFormInput type="text" id="origin" />
-                    </CCol>
-                </CRow>
-                <fieldset className="row mb-3">
-                    <legend className="col-form-label col-sm-2 pt-0">Gender</legend>
-                    <CCol sm={5} >
-                        <CFormCheck type="radio" name="gridRadios" id="gridRadios1" value="male" label="male" defaultChecked />
-                        <CFormCheck type="radio" name="gridRadios" id="gridRadios2" value="female" label="female" />
-                        <CFormCheck type="radio" name="gridRadios" id="gridRadios3" value="unisex" label="unisex" />
-                    </CCol>
-                </fieldset>
-                <CButton type="submit">Upload</CButton>
-            </CForm>
+            <InputName edit={0} props={0}/>
             <br /><br />
             <form>
                 <label htmlFor="upload">Upload Excel File</label>
@@ -95,8 +67,8 @@ export default function addName() {
                     type="file"
                     name="upload"
                     id="upload"
-                    onChange={readUploadFile}
                 />
+            <div><br/> <CButton color='success' onClick={readUploadFile}>Upload File</CButton></div>
             </form>
         </div>
 }

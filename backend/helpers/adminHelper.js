@@ -231,22 +231,6 @@ module.exports = {
             }
         })
     },
-    // Edit Ads
-    editAds: (data) => {
-        return new promise(async (resolve, reject) => {
-            try {
-                db.get().collection(collection.Ads).updateOne({ "_id": ObjectID(data.id) }, {
-                    $set: {
-                        url: data.url
-                    }
-                }).then((data) => {
-                    resolve('Ads updated Sucessfully')
-                })
-            } catch (error) {
-                resolve(error)
-            }
-        })
-    },
     //delete Ads
     deleteAds: (id) => {
         return new Promise(async (resolve, reject) => {

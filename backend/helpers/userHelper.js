@@ -63,6 +63,13 @@ module.exports = {
             resolve(Notice)
         })
     },  
+        // single Notice
+        getSingleNotice: (id) => {
+            return new promise(async (resolve, reject) => {
+                let Notice = await db.get().collection(collection.notice).find({_id:ObjectID(id)}).toArray()
+                resolve(Notice)
+            })
+        }, 
     
       // Ads
       getAds: () => {

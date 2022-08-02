@@ -12,16 +12,23 @@ const unisexPage = React.lazy(() => import('./views/UniquePage/unisex'))
 const alphabetPage = React.lazy(() => import('./views/UniquePage/alphabet'))
 
 const addblog = React.lazy(() => import('./views/blog/addBlog'));
-const editblog = React.lazy(() => import('./views/blog/editBlog'));
+const viewBlogs = React.lazy(() => import('./views/blog/viewBlogs'));
 
 const ads = React.lazy(() => import('./views/ads/adspage'))
+const message = React.lazy(() => import('./views/message/message'))
+
+const notice = React.lazy(() => import('./views/notice/addNotice'))
+const viewNotice = React.lazy(() => import('./views/notice/viewNotice'))
+const editNotice = React.lazy(() => import('./views/notice/editNotice'))
+
+
 
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/names/addName', name: 'name / add name', element: addName },
-  { path: '/names/editName', name: 'name / edit name', element: editName },
+  { path: '/names/editName/:id', name: 'name / edit name', element: editName },
   { path: '/names/singleName/:id', name: 'name / edit name', element: singleName },
 
   { path: '/names/boys', name: 'name / Boys', element: boysPage },
@@ -55,9 +62,19 @@ const routes = [
   { path: '/names/:alpha', name: 'name / Name with Y', element: alphabetPage },
   { path: '/names/:alpha', name: 'name / Name with Z', element: alphabetPage },
 
-  { path: '/blogs/addBlog', name: 'name / Add blogs', element: addblog },
-  { path: '/blogs/editBlogs', name: 'blog / Edit blogs', element: editblog },
+  { path: '/blogs/addBlog', name: 'blog / Add blogs', element: addblog },
+  { path: '/blogs/viewBlogs', name: 'blog / View blogs', element: viewBlogs },
+
   { path: '/ads', name: 'Ads', element: ads },
+  { path: '/messages', name: 'Messages', element: message },
+
+  { path: '/notice/addNotice', name: 'notice / Add Notice', element: notice },
+  { path: '/notice/viewNotice', name: 'notice / View Notice', element: viewNotice },
+  { path: '/notice/editNotice', name: 'notice / Edit Notice', element: editNotice },
+
+
+
+
 
 ]
 

@@ -7,7 +7,19 @@ var collection = require("../config/collection");
 var jwt = require('jsonwebtoken');
 const nodemailer = require("nodemailer");
 var handlebars = require('handlebars');
+const multer = require("multer");
 
+// Multer
+const storage = multer.diskStorage({
+  destination: ((req, file, cb) => {
+    cb(null, './public/image/');
+  }),
+  filename: ((req, file, cb) => {
+    cb(null, new Date().toISOString() + file.originalname);
+  })
+
+})
+const upload = multer({ storage: storage })
 
 //////////////////////////////////////// Section name
 
@@ -88,6 +100,12 @@ router.get('/getNotice',((req,res)=>{
     res.send(response)
   })
 }))
+// GEt single notice
+router.get('/getSingleNotice/:id',((req,res)=>{
+  userHelper.getSingleNotice(req.params.id).then((response)=>{
+    res.send(response)
+  })
+}))
 
 
 /////////////////////////////////////////// section message
@@ -108,9 +126,14 @@ router.get('/deleteMessage/:id', function (req, res) {
 //////////////////////////////////////////// section blog
 
 // Add Blog
-router.post('/addBlog', function (req, res) {
+router.post('/addBlog',upload.single('image'), function (req, res) {
+  if (req.file != undefined) {
+    const arrayOfStrings = req.file.path.split('/')
+    req.body.image = arrayOfStrings[2]
+  }
   adminHelper.addBlog(req.body).then((response) => {
-    res.json(response._id)
+    res.json(response)
+    console.log(response);
   })
 });
 
@@ -146,15 +169,15 @@ router.get('/getBlog/:id',((req,res)=>{
 
 /////////////////////////////////////////////// section ads
 
+// Get Ads
+router.get('/getAds',((req,res)=>{
+  userHelper.getAds().then((response)=>{
+    res.send(response)
+  })
+}));
 // Add Ads
 router.post('/addAds', function (req, res) {
   adminHelper.addAds(req.body).then((response) => {
-    res.json(response)
-  })
-});
-// edit Ads
-router.post('/editAds', function (req, res) {
-  adminHelper.editAds(req.body).then((response) => {
     res.json(response)
   })
 });

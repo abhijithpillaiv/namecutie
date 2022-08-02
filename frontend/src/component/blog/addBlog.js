@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { port } from '../../assets/collection'
 import addImg from '../../assets/addImage.png'
 import './components/edit/edit.css'
+import { CInputGroup, CFormInput, CFormLabel,CInputGroupText, CButton, CFormTextarea, CForm } from '@coreui/react'
 import { useNavigate } from 'react-router-dom'
 import Lodr from '../section/lodr'
 import axios from 'axios'
@@ -18,7 +19,7 @@ function addBlog() {
     // Handler
     const submitHandler=(event) =>{ 
         event.preventDefault();
-        setpreview(true)
+        setpreview(false)
 
         // Formdata
          let formdata = new FormData();
