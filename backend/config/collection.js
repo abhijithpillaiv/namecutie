@@ -11,7 +11,6 @@ module.exports={
 
 
     user:'users',
-    purchase:'purchase',
 
     admin:'Admin',
     adminEmail:'admin@abcchoice.cafe',

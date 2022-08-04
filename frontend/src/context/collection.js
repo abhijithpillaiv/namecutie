@@ -1,4 +1,4 @@
 module.exports={
-    port : '/',
+    port : 'http://localhost:9000/',
     cookie:'data1'
 }

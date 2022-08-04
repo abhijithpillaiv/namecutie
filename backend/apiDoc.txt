@@ -151,8 +151,12 @@ api code/doc
                 /api/getName/:id :
                                     ip :: params.id(auto generated)
                                     op :: single name with _id=params.id {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (json)                                   
+ 
+                /api/getName/:name :
+                                    ip :: name(auto generated)
+                                    op :: single name with _id=params.id {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (json)                                   
 
-                /api/admin/getNames/:Char (get) :
+                /api/getNames/alphabet/:char (get) :
 
                                     ip :: char(auto generated)
                                     op :: names with specific char {name(string),meaning(string),gender(boy,girl,unisex),ethni(array),like,_id} (array)

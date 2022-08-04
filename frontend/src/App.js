@@ -1,8 +1,12 @@
 import React from "react";
-import Client from './client'
+import './app.css'
 import Landing from "./component/landing/landing";
 import Namepage from "./component/nameDetails/namePageLanding";
-import { Route, Routes, Switch, useLocation } from "react-router-dom";
+import Blog from './component/blog/ViewBlogs'
+import BlogSingle from './component/blog/components/singlePost/SinglePost'
+import MostLiked from './component/mostLiked/mostLiked'
+import Message from "./component/message/Message";
+import { Route, Routes } from "react-router-dom";
 
 import { CookiesProvider } from 'react-cookie';
 
@@ -12,9 +16,13 @@ function App() {
       <CookiesProvider>
       <Routes>
       <Route exact element={<Landing/>} path="/" /> 
-      <Route exact element={<Namepage/>} path="/meaningof/:name" /> 
-      <Route exact element={<Landing/>} path="/nameWith/:letter" /> 
+      <Route exact element={<Namepage/>} path="/meaningof/:name/:id" /> 
+      <Route exact element={<Landing/>} path='/nameWith/:letter'/> 
       <Route exact element={<Landing/>} path="/nameOf/:letter" /> 
+      <Route exact element={<Blog/>} path="/blog" /> 
+      <Route exact element={<BlogSingle/>} path="/blog/singleBlog/:id" /> 
+      <Route exact element={<MostLiked/>} path="/names/mostLiked" /> 
+      <Route exact element={<Message/>} path="/messages" /> 
       </Routes>
       </CookiesProvider>
 

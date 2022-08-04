@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./strip.css";
 
-export default function ({setmid}) {
+export default function strip () {
   return (
     <div className="container-fluid">
       <div className="row">

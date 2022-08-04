@@ -1,20 +1,18 @@
-import { useEffect } from 'react';
-import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './headder.css'
 
-export default function Headder({setmid}) {
+export default function Headder() {
   return (
     <div className='container-fluid'>
       <div className="head-down row">
         <div className="head col-2">
-          <Link  to={{pathname:'/nameOf/boys'}} ><span className="letter">Boys</span></Link>          
+          <Link  to={{pathname:'/nameOf/BOYS'}} ><span className="letter">Boys</span></Link>          
         </div>
         <div className="head col-2">
-        <Link to={{pathname:'/nameOf/girls'}}  ><span className="letter">Girls</span></Link>           
+        <Link to={{pathname:'/nameOf/GIRLS'}}  ><span className="letter">Girls</span></Link>           
         </div>
         <div className="head col-2">
-        <Link to={{pathname:'/nameOf/unisex'}} ><span className="letter">Unisex</span></Link>          
+        <Link to={{pathname:'/nameOf/UNISEX'}} ><span className="letter">Unisex</span></Link>          
         </div>
         <div className="head col-2">
         <Link to={{pathname:'/blog'}}><span style={{paddingLeft:'10px'}} className="letter">Blogs</span></Link>           

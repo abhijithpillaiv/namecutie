@@ -25,8 +25,15 @@ module.exports = {
 
     // Get single name
     getSingleName: (id) => {
+        console.log('in'+id);
         return new promise(async (resolve, reject) => {
             let Name = await db.get().collection(collection.name).findOne({_id:ObjectID(id)})
+            resolve(Name);
+        })
+    },
+    getSingleNamev2: (name) => {
+        return new promise(async (resolve, reject) => {
+            let Name = await db.get().collection(collection.name).findOne({'name':name})
             resolve(Name);
         })
     },
@@ -42,7 +49,7 @@ module.exports = {
         // Get single blog
         getSingleBlog: (id) => {
             return new promise(async (resolve, reject) => {
-                let blog = await db.get().collection(collection.blog).findOne({_id:ObjectID(id)}).toArray()
+                let blog = await db.get().collection(collection.blog).findOne({_id:ObjectID(id)})
                 resolve(blog);
             })
         },

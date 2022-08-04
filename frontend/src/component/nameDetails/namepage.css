@@ -18,6 +18,8 @@
     text-align: left;
     margin-left: 10px;
     padding-bottom: 20px;
+    font-weight: bolder;
+    font-size:large
 }
 .heart{
     margin-left: 100px;
@@ -51,4 +53,6 @@
 }
 .ans{
     font-weight: lighter;
+    font-size: 20px;
+    text-align:left;
 }

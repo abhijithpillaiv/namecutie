@@ -93,9 +93,9 @@ export default function inputName({ edit, props }) {
             <CCol sm={5} >
                 <CFormSelect required size="sm" value={gender} onChange={(e) => setgender(e.target.value)} className="mb-3" aria-label="Small select example">
                     <option value="">add New option</option>
-                    <option value="boy">Boy</option>
-                    <option value="girl">Girl</option>
-                    <option value="unisex">Unisex</option>
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>
+                    <option value="Unisex">Unisex</option>
                 </CFormSelect>
             </CCol>
         </fieldset>

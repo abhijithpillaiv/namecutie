@@ -7,10 +7,10 @@ function viewBlogs() {
     const [post, setpost] = useState(null);
     useEffect(() => {
         axios.get(port+'api/admin/getBlog').then((res)=>{
-            setpost(res)
+            setpost(res.data)
         })
     },[]);
-  return post?<Post post={post}/>:<Loader/>
+  return post?<Post posts={post}/>:<Loader/>
 }
 
 export default viewBlogs

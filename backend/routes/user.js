@@ -11,7 +11,7 @@ const fs = require("fs")
 // Get all Names
 
 router.get('/getNames/:gender',((req,res)=>{
-  userHelper.getName().then((response)=>{
+  userHelper.getName(req.params.gender).then((response)=>{
     res.send(response)
   })
 }))
@@ -24,8 +24,15 @@ router.get('/getNames/alphabet/:char',((req,res)=>{
 }))
 
 // Get single name
-router.get('/getNames/:id',((req,res)=>{
+router.get('/getNames/:name/:id',((req,res)=>{
+  console.log('in');
   userHelper.getSingleName(req.params.id).then((response)=>{
+    res.send(response)
+  })
+}))
+// Get single name
+router.get('/getNamesv2/:name',((req,res)=>{
+  userHelper.getSingleNamev2(req.params.name).then((response)=>{
     res.send(response)
   })
 }))

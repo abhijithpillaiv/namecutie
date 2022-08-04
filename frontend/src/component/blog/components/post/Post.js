@@ -1,24 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./post.css";
-import { Link } from "react-router-dom";
-import { port } from '../../../../assets/collection';
+import { port } from '../../../../context/collection';
+import Single from '../singlePost/SinglePost'
 
 export default function Post({ post }) {
-  console.log(post);
+
+  const [toggler, settoggler] = useState(true);
+  const singleHandler=()=>{
+    settoggler(false)
+  }
+
   const PF = port+"image/";
-  return (
-    <div className="post">
+  return toggler?<div className="post">
       {post.image===undefined?null: <img className="postImg" src={PF + post.image} alt="" />}
       <div className="postInfo">
         <div className="postCats">
         </div>
-        <Link to={`/admin/singlePost/${post._id}`} className="link">
-          <span className="postTitle">{post.title}</span>
-        </Link>
+          <span onClick={()=>singleHandler()} className="postTitle">{post.title}</span>
         <hr />
       </div>
 
-    </div>
-  );
+    </div>:<Single post={post}/>
 }
 

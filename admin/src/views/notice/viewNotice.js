@@ -7,6 +7,7 @@ import {
 } from '@coreui/icons'
 import CIcon from '@coreui/icons-react';
 import { useNavigate } from 'react-router-dom';
+import {port} from '../../assets/collection'
 
 
 export default function viewNotice() {
@@ -17,7 +18,7 @@ export default function viewNotice() {
 
     useEffect(() => {
         axios.get(port+'api/admin/getNotice').then((res)=>{
-            setnotice(res)
+            setnotice(res.data)
         })
     }, [progress]);
     const editHandler=(_id)=>{

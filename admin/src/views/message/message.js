@@ -10,6 +10,7 @@ import {
   CTableHead,
   CTableHeaderCell,
   CTableRow,
+  
 } from '@coreui/react'
 import {
   cilArrowThickToTop,
@@ -27,8 +28,6 @@ import CIcon from '@coreui/icons-react'
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  const classes = useRowStyles();
-
   // Delete Handler
 
   const deleteHandler = (id) => {
@@ -39,7 +38,7 @@ function Row(props) {
   }
   return (
     <span>
-      <CTableRow v-for="item in tableItems" className={classes.root}>
+      <CTableRow v-for="item in tableItems" >
         <CTableDataCell>
             {open ? <CIcon icon={cilArrowThickToTop} /> : <CIcon icon={cilArrowBottom} />}
         </CTableDataCell>
