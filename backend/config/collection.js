@@ -16,7 +16,7 @@ module.exports={
     user:'users',
 
     admin:'Admin',
-    adminEmail:'a@a',
+    adminEmail:'a',
     adminSecurePass:'a',
 
     // Order

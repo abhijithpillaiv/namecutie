@@ -42,8 +42,8 @@ async function sendmail(port,mailId,token,msg){
    host: 'smtp.gmail.com',
    port:465,
     auth: {
-      user: '@gmail.com',
-      pass: 'abcchoice.123'
+      user: 'itsmrblack101@gmail.com',
+      pass: 'Abhi@#$262001'
     }
   });
 
@@ -91,24 +91,16 @@ async function sendmail(port,mailId,token,msg){
       }))
       // Update password
       router.post('/updatePass',((req,res)=>{
-        console.log('inside updatePass');
-        var decoded = null
-         decoded = jwt.decode(req.body.id, {complete: true});
-         console.log(decoded);
-         if (decoded) {
-          adminHelper.updatePass(decoded.payload.data,req.body.password).then((resp)=>{
-            res.json(decoded.payload.data)
-          })
-        }else{
-          res.json(false)
-        }
+        adminHelper.updatePass(req.body).then((resp)=>{
+          res.send(resp)
+        })
       }))
       
       // Login
       router.post('/', function (req, res) {
         adminHelper.login(req.body).then((status) => {
-          if (status == true) {
-            res.json(true)
+          if (status) {
+            res.json(status)
           }
           else {
             res.json(false)

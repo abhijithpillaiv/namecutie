@@ -21,6 +21,7 @@ import { port } from '../../../assets/collection';
 
 const Login = () => {
   const [cookies, setCookie] = useCookies(['status']);
+  const [cookiesid, setCookieid] = useCookies(['id']);
   const [email, setemail] = useState(null);
   const [pswd, setpswd] = useState(null);
   const [forgot, setforgot] = useState(null);
@@ -29,7 +30,9 @@ const Login = () => {
 
   const submitHandler = () => {
     axios.post(port+'api/admin' , { 'email': email, 'password': pswd }).then((res) => {
+      console.log(res.data);
       if (res.data) {
+        setCookieid('id',res.data,{path:'/'})
         setCookie('status', true, { path: '/' })
         window.location.reload(false)
       }

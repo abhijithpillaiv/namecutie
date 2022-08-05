@@ -21,6 +21,9 @@ const notice = React.lazy(() => import('./views/notice/addNotice'))
 const viewNotice = React.lazy(() => import('./views/notice/viewNotice'))
 const editNotice = React.lazy(() => import('./views/notice/editNotice'))
 
+const changePassword = React.lazy(() => import('./views/settings/changePassword'))
+const logout = React.lazy(() => import('./views/settings/logout'))
+
 
 
 
@@ -72,6 +75,8 @@ const routes = [
   { path: '/notice/viewNotice', name: 'notice / View Notice', element: viewNotice },
   { path: '/notice/editNotice/:id', name: 'notice / Edit Notice', element: editNotice },
 
+  { path: '/settings/changePassword', name: 'Settings / Change Password', element: changePassword },
+  { path: '/logout', name: 'notice / Edit Notice', element: logout },
 
 
 

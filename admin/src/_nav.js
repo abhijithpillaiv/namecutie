@@ -7,7 +7,9 @@ import {
   cilBaby,
   cilPen,
   cilCursor,
-  cilChart
+  cilChart,
+  cilAccountLogout,
+  cilPencil
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -206,6 +208,22 @@ const _nav = [
     component: CNavItem,
     name: 'Messages',
     to: '/messages',
+  },
+  {
+    component: CNavTitle,
+    name: 'Settings',
+  },
+  {
+    component: CNavItem,
+    name: 'Change Password',
+    to: '/settings/changePassword',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Logout',
+    to: '/logout',
+    icon: <CIcon icon={cilAccountLogout} customClassName="nav-icon" />,
   },
 ]
 

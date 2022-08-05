@@ -7,7 +7,7 @@ import Search from "../search/search";
 import Notice from '../notice/notice'
 import './mostLiked.css'
 import logo from '../../static/logo.png'
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import { port } from "../../context/collection";
 import axios from "axios";
@@ -47,6 +47,7 @@ function Landing() {
         </div>
         <div className="row">
           <div className="col-12 ">
+            <h2 style={{textAlign:'center',color:'navy',fontFamily:'monospace',fontSize:'25px'}}>MOST LIKED NAMES</h2>
           <Mid />
           </div>
         </div>

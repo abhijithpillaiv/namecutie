@@ -18,13 +18,13 @@ function Mid() {
     const [dataunisex, setdataunisex] = useState(null)
 
     const getData=()=>{
-        axios.get(collection.port+'api/admin/getNames/Boy').then((res)=>{
+        axios.get(collection.port+'api/getNames/Boy').then((res)=>{
           setdataboy(res.data)
         })
-        axios.get(collection.port+'api/admin/getNames/Girl').then((res)=>{
+        axios.get(collection.port+'api/getNames/Girl').then((res)=>{
           setdatagirl(res.data)
         })
-        axios.get(collection.port+'api/admin/getNames/Unisex').then((res)=>{
+        axios.get(collection.port+'api/getNames/Unisex').then((res)=>{
           setdataunisex(res.data)
         })
       }

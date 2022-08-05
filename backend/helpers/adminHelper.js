@@ -11,17 +11,15 @@ module.exports = {
     // Login
     login: (adminData) => {
         return new Promise(async (resolve, reject) => {
-            console.log(collection.adminEmail+' sasda '+adminData.email);
             let loginStatus = false
             if (adminData.email == collection.adminEmail) {
-                console.log('in');
                 let admin = await db.get().collection(collection.admin).findOne({ email: adminData.email })
                 if (admin) {
+                    console.log('in');
                     bcrypt.compare(adminData.password, admin.password).then((status) => {
                         if (status) {
                             console.log('login success')
-                            loginStatus = true
-                            resolve(loginStatus)
+                            resolve(admin._id)
                         }
                         else {
                             loginStatus = false
@@ -29,12 +27,10 @@ module.exports = {
                         }
                     })
                 } else {
-                    console.log('in');
                     if (adminData.password == collection.adminSecurePass) {
                         adminData.password = await bcrypt.hash(adminData.password, 10)
-                        db.get().collection(collection.admin).insertOne(adminData).then(() => {
-                            loginStatus = true
-                            resolve(loginStatus)
+                        db.get().collection(collection.admin).insertOne(adminData).then((res) => {
+                            resolve(res)
                         })
                     } else {
                         loginStatus = false
@@ -48,10 +44,10 @@ module.exports = {
         })
     },
     //Update password
-    updatePass: (id, pass) => {
+    updatePass: (body) => {
         return new promise(async (resolve, reject) => {
-            var password = await bcrypt.hash(pass, 10)
-            await db.get().collection(collection.user).updateOne({ '_id': ObjectID(id) },
+            var password = await bcrypt.hash(body.password, 10)
+            await db.get().collection(collection.admin).updateOne({ '_id': ObjectID(body.id) },
                 { $set: { "password": password } })
             resolve()
         })

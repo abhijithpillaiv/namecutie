@@ -1,12 +1,12 @@
 import axios from 'axios'
 import React, {  useContext, useState } from 'react'
 import './mid.css'
-import Nametable from './nametable'
+import Nametable from '../mid/nametable'
 import Lodr from '../../static/lodr'
 import collection from '../../context/collection'
 import { Link } from 'react-router-dom'
 import {search} from '../../context/search'
-import NametableSearch from './nametableSearch'
+import NametableSearch from '../mid/nametableSearch'
 
 
 function Mid() {
@@ -19,12 +19,15 @@ function Mid() {
 
     const getData=()=>{
         axios.get(collection.port+'api/admin/getNames/Boy').then((res)=>{
+          res.data.sort((a, b) => b.like - a.like);
           setdataboy(res.data)
         })
         axios.get(collection.port+'api/admin/getNames/Girl').then((res)=>{
+          res.data.sort((a, b) => a.like - b.like);
           setdatagirl(res.data)
         })
         axios.get(collection.port+'api/admin/getNames/Unisex').then((res)=>{
+          res.data.sort((a, b) => a.like - b.like);
           setdataunisex(res.data)
         })
       }
