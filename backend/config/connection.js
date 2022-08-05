@@ -7,7 +7,7 @@ const state={
 module.exports.connect=function(done){
     const url ="mongodb://localhost:27017"
 
-    const dbname ='namecutie'
+    const dbname ='namecutie4'
 
     mongoClient.connect(url, {  useNewUrlParser: true, useUnifiedTopology: true }, (err, data)=>{
       if (err) return done(err);

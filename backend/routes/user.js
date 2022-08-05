@@ -72,8 +72,8 @@ router.get('/getAds',((req,res)=>{
 }))
 
 // Add like
-router.post('/like/:id',((req,res)=>{
-  userHelper.setLike(req.params.id).then((response)=>{
+router.post('/like',((req,res)=>{
+  userHelper.setLike(req.body).then((response)=>{
     res.send(response)
   })
 }))

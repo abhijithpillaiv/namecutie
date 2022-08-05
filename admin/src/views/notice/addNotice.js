@@ -42,7 +42,7 @@ function addNotice() {
                                 <input style={{fontWeight:'bold',fontSize:'20px'}} required type="text" onChange={(e)=>settitle(e.target.value)} className="form-control"/>
                             </div>
                            
-                            <div className="col-xl-6 col-lg-6 col-12 form-group">
+                            <div className="col-xl-12 col-lg-12 col-12 form-group">
                                 <label>Content</label>
                                 <textarea style={{fontSize:'15px',height:'250px'}}  onChange={(e)=>setcontent(e.target.value)}  placeholder="Add content" className="form-control"/>
                             </div> 

@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
+import axios from 'axios'
 import {
   CButton,
   CCard,
@@ -15,72 +17,115 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import { port } from '../../../assets/collection';
 
 const Login = () => {
-  return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
-      <CContainer>
-        <CRow className="justify-content-center">
-          <CCol md={8}>
-            <CCardGroup>
-              <CCard className="p-4">
-                <CCardBody>
-                  <CForm>
-                    <h1>Login</h1>
-                    <p className="text-medium-emphasis">Sign In to your account</p>
-                    <CInputGroup className="mb-3">
-                      <CInputGroupText>
-                        <CIcon icon={cilUser} />
-                      </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
-                    </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupText>
-                        <CIcon icon={cilLockLocked} />
-                      </CInputGroupText>
-                      <CFormInput
-                        type="password"
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
-                    </CInputGroup>
-                    <CRow>
-                      <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
-                          Login
-                        </CButton>
-                      </CCol>
-                      <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton>
-                      </CCol>
-                    </CRow>
-                  </CForm>
-                </CCardBody>
-              </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                        Register Now!
+  const [cookies, setCookie] = useCookies(['status']);
+  const [email, setemail] = useState(null);
+  const [pswd, setpswd] = useState(null);
+  const [forgot, setforgot] = useState(null);
+  const [incorrect, setincorrect] = useState(null);
+
+
+  const submitHandler = () => {
+    axios.post(port+'api/admin' , { 'email': email, 'password': pswd }).then((res) => {
+      if (res.data) {
+        setCookie('status', true, { path: '/' })
+        window.location.reload(false)
+      }
+      else {
+        setincorrect(true)
+      }
+    })
+  }
+  const forgotHandler = () => {
+    axios.post(port+'api/admin/forgetPass',{'email':email}).then((res)=>{
+      window.alert("mail sent sucessfully")
+    })
+  }
+  return forgot?
+        <div>
+      < div className = "bg-light min-vh-100 d-flex flex-row align-items-center" >
+    <CContainer>
+      <CRow className="justify-content-center">
+        <CCol md={8}>
+          <CCardGroup>
+            <CCard className="p-4">
+              <CCardBody>
+                <CForm>
+                  <h1>Forgot Password</h1>
+                  {/* <p className="text-medium-emphasis">Sign In to your account</p> */}
+                  <p>Enter your provided email.</p>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText >
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput onChange={(e) => setemail(e.target.value)} placeholder="email" autoComplete="username" />
+                  </CInputGroup>
+                  <CRow>
+                    <CCol xs={6}>
+                      <CButton onClick={forgotHandler} color="primary" className="px-4">
+                        Submit
                       </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
-            </CCardGroup>
-          </CCol>
-        </CRow>
-      </CContainer>
-    </div>
-  )
+                    </CCol>
+
+                  </CRow>
+                </CForm>
+              </CCardBody>
+            </CCard>
+          </CCardGroup>
+        </CCol>
+      </CRow>
+    </CContainer>
+    </div >
+    </div >
+      : <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <CContainer>
+    <CRow className="justify-content-center">
+      <CCol md={8}>
+        <CCardGroup>
+          <CCard className="p-4">
+            <CCardBody>
+              <CForm>
+                <h1>Login</h1>
+                <p className="text-medium-emphasis">Sign In to your account</p>
+                {incorrect ? <p style={{ color: 'red' }}>Invailid username or password.</p> : null}
+                <CInputGroup className="mb-3">
+                  <CInputGroupText >
+                    <CIcon icon={cilUser} />
+                  </CInputGroupText>
+                  <CFormInput onChange={(e) => setemail(e.target.value)} placeholder="Username" autoComplete="username" />
+                </CInputGroup>
+                <CInputGroup className="mb-4">
+                  <CInputGroupText >
+                    <CIcon icon={cilLockLocked} />
+                  </CInputGroupText>
+                  <CFormInput onChange={(e) => setpswd(e.target.value)}
+                    type="password"
+                    placeholder="Password"
+                    autoComplete="current-password"
+                  />
+                </CInputGroup>
+                <CRow>
+                  <CCol xs={6}>
+                    <CButton onClick={submitHandler} color="primary" className="px-4">
+                      Login
+                    </CButton>
+                  </CCol>
+                  <CCol xs={6} className="text-right">
+                    <CButton onClick={()=>setforgot(true)} color="link" className="px-0">
+                      Forgot password?
+                    </CButton>
+                  </CCol>
+                </CRow>
+              </CForm>
+            </CCardBody>
+          </CCard>
+        </CCardGroup>
+      </CCol>
+    </CRow>
+  </CContainer>
+</div>
 }
 
 export default Login

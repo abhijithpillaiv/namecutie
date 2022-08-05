@@ -57,7 +57,7 @@ function Message({settoggler}) {
 
                             
                             <div className="col-12 form-group mg-t-8">
-                                <button onClick={submitHandler}  className="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                <button onClick={submitHandler}  className="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Sent</button>
                                 <button onClick={resetHandler} type="reset" className="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                             </div>
                         </div>

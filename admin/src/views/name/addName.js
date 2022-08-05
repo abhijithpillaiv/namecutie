@@ -10,19 +10,20 @@ export default function addName() {
 
     // excel reader
     const [data, setdata] = useState(null)
-    const readUploadFile = (e) => {
-        e.preventDefault();
-        if (e.target.files) {
+    const [state, setstate] = useState(null);
+    const readUploadFile = () => {
+        if (state.target.files) {
             const reader = new FileReader();
-            reader.onload = (e) => {
-                const data = e.target.result;
+            reader.onload = (state) => {
+                const data = state.target.result;
                 const workbook = xlsx.read(data, { type: "array" });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json = xlsx.utils.sheet_to_json(worksheet);
                 setdata(json)
+                console.log(json);
             };
-            reader.readAsArrayBuffer(e.target.files[0]);
+            reader.readAsArrayBuffer(state.target.files[0]);
         }
     }
 
@@ -48,12 +49,10 @@ export default function addName() {
             }
             axios.post(collection.port + 'api/admin/addName', {
                 'name': data[i].Name, 'gender': data[i].Gender, 'meaning': data[i].Meaning, 'ethni': eth, 'like': 0
-            }).then((response) => {
-                alert("Names added sucessfully")
-                setprogress(false)
-                //history.push('/addStudent/'+cate)
-            })
+            }).then(() => {})
         }
+        alert("Names added sucessfully")
+        setprogress(false)
     }
 
 
@@ -63,7 +62,7 @@ export default function addName() {
             <br /><br />
             <form>
                 <label htmlFor="upload">Upload Excel File</label>
-                <input
+                <input onChange={(e)=>{setstate(e)}}
                     type="file"
                     name="upload"
                     id="upload"

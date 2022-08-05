@@ -1,7 +1,10 @@
 module.exports={
 
+    // port:'https://abcchoice.cafe/',
+    // portAdmin:'https://abcchoice.cafe/admin',
+
     port:'https://abcchoice.cafe/',
-    portAdmin:'https://abcchoice.cafe/admin',
+    portAdmin:'http://localhost:3001/admin',
 
     name:'name',
     blog:'blog',
@@ -13,8 +16,8 @@ module.exports={
     user:'users',
 
     admin:'Admin',
-    adminEmail:'admin@abcchoice.cafe',
-    adminSecurePass:'Admin@abcchoice',
+    adminEmail:'a@a',
+    adminSecurePass:'a',
 
     // Order
     order:'order',

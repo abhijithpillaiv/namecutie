@@ -21,6 +21,101 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
+//////////////////////////////////////// Section mail
+
+var readHTMLFile = function(path, callback) {
+  fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+      if (err) {
+          throw err;
+          callback(err);
+      }
+      else {
+          callback(null, html);
+      }
+  });
+};
+
+async function sendmail(port,mailId,token,msg){
+  console.log("Sending mail.");
+  var transporter = nodemailer.createTransport({
+   // service:'gmail',
+   host: 'smtp.gmail.com',
+   port:465,
+    auth: {
+      user: '@gmail.com',
+      pass: 'abcchoice.123'
+    }
+  });
+
+  readHTMLFile(__dirname + '/mailTemplate/index.hbs', function(err, html) {
+    var template = handlebars.compile(html);
+    var replacements = {
+         message:msg,
+         port:port+token
+    };
+    var htmlToSend = template(replacements);
+    var mailOptions = {
+      from: 'noreply',
+      to: mailId,
+      subject: "Verification by Name Cutie",
+        html : htmlToSend
+     };
+     transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+});
+};
+
+///////////////////////////////////////// Section Password
+
+      // forget password
+      router.post('/forgetPass',(async(req,res)=>{
+  
+        if(req.body.email==collection.adminEmail){
+          var user =await adminHelper.getAdmin(req.body.email)
+          var token = jwt.sign({
+            data: user
+          }, 'key', { expiresIn: 60 * 10 });
+          var port = collection.portAdmin+"/forgotPassword/"
+          var msg = 'Reset your password'
+          sendmail(port,req.body.email,token,msg)
+          res.json(true)
+       }
+        else{
+          res.json(false)
+        }
+      }))
+      // Update password
+      router.post('/updatePass',((req,res)=>{
+        console.log('inside updatePass');
+        var decoded = null
+         decoded = jwt.decode(req.body.id, {complete: true});
+         console.log(decoded);
+         if (decoded) {
+          adminHelper.updatePass(decoded.payload.data,req.body.password).then((resp)=>{
+            res.json(decoded.payload.data)
+          })
+        }else{
+          res.json(false)
+        }
+      }))
+      
+      // Login
+      router.post('/', function (req, res) {
+        adminHelper.login(req.body).then((status) => {
+          if (status == true) {
+            res.json(true)
+          }
+          else {
+            res.json(false)
+          }
+        })
+      });
+
 //////////////////////////////////////// Section name
 
 // Add Name
@@ -126,7 +221,8 @@ router.get('/deleteMessage/:id', function (req, res) {
 //////////////////////////////////////////// section blog
 
 // Add Blog
-router.post('/addBlog',upload.single('image'), function (req, res) {
+router.post('/addBlog',upload.single('image'),((req, res)=> {
+  console.log(req.file);
   if (req.file != undefined) {
     const arrayOfStrings = req.file.path.split('/')
     req.body.image = arrayOfStrings[2]
@@ -135,7 +231,7 @@ router.post('/addBlog',upload.single('image'), function (req, res) {
     res.json(response)
     console.log(response);
   })
-});
+}));
 
 // edit Blog
 router.post('/editBlog', function (req, res) {

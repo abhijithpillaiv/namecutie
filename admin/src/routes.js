@@ -70,7 +70,7 @@ const routes = [
 
   { path: '/notice/addNotice', name: 'notice / Add Notice', element: notice },
   { path: '/notice/viewNotice', name: 'notice / View Notice', element: viewNotice },
-  { path: '/notice/editNotice', name: 'notice / Edit Notice', element: editNotice },
+  { path: '/notice/editNotice/:id', name: 'notice / Edit Notice', element: editNotice },
 
 
 

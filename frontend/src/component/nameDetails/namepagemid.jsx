@@ -5,21 +5,51 @@ import lovefalse from "../../static/lovex.png";
 import lovetrue from "../../static/love.png";
 import Message from "../message/Message";
 import CIcon from "@coreui/icons-react";
-import { cilEnvelopeClosed } from "@coreui/icons";
+import { cilPen } from "@coreui/icons";
 import { useEffect } from "react";
 import axios from "axios";
+import { useCookies } from 'react-cookie';
 import { port } from "../../context/collection";
 export default function Details({ props }) {
+  const [cookies, setCookie] = useCookies(['like']);
   const [isClick, setClick] = useState(false);
+  const [likeIndex, setlikeIndex] = useState(null);
   const [ads, setads] = useState(null);
+  const [like, setlike] = useState(props.like);
+
   useEffect(() => {
-    console.log(isClick);
-  }, [isClick]);
+    if (cookies.like) {
+      cookies.like.map((key,index)=>{
+        if (key===props._id) {
+          setlikeIndex(index)
+          setClick(true)
+        }
+        return(<div></div>)
+      })
+    }
+  }, [props,cookies.like]);
   const clickhandler = () => {
     if (isClick === true) {
-      setClick(false);
+      axios.post(port+'api/like/',{like:parseInt(props.like)-1,id:props._id}).then(()=>{
+        setClick(false);
+        console.log(likeIndex);
+        console.log(cookies.like);
+        cookies.like.splice(likeIndex,1)
+        setCookie('like',cookies.like,{path:'/'})
+        setlike(parseInt(props.like)-1)
+      })
     } else {
-      setClick(true);
+      axios.post(port+'api/like/',{like:parseInt(props.like)+1,id:props._id}).then(()=>{
+        if (cookies.like) {
+          cookies.like=[...cookies.like,props._id]
+          setCookie('like',cookies.like,{path:'/'})
+        }
+        else{
+          setCookie('like',[props._id] , { path: '/' });
+        }
+        setClick(true);
+        setlike(parseInt(props.like)+1)
+      })
     }
   };
   const [toggler, settoggler] = useState(null);
@@ -33,8 +63,7 @@ export default function Details({ props }) {
     })
   }, []);
 
-  return (
-    <div className="container-fluid">
+  return <div className="container-fluid">
       <div className="namepageheader">
         <div className="row">
           <div  className="col-9">
@@ -43,19 +72,19 @@ export default function Details({ props }) {
               {isClick ? (
                 <img
                   src={lovetrue}
-                  onClick={clickhandler}
+                  onClick={()=>clickhandler()}
                   alt="lovetrue"
                   className="image"
                 />
               ) : (
                 <img
-                  onClick={clickhandler}
+                  onClick={()=>clickhandler()}
                   src={lovefalse}
                   alt="lovefalse"
                   className="imagelovefalse"
                 />
               )}
-              <span className="lovecount">{props.like}</span>
+              <span className="lovecount">{like}</span>
             </div>
             <div style={{textAlign:'left'}} className="row">
               <div className="col-lg-2 col-sm-12">
@@ -88,8 +117,8 @@ export default function Details({ props }) {
                 </span>{" "}
               </div>
             </div>
-            <div style={{cursor:'pointer'}} onClick={messageHandler} className="sugg">
-              <CIcon icon={cilEnvelopeClosed} size="lg" className="suggestion" /> Write
+            <div style={{cursor:'pointer',color:'blue',textAlign:'left'}} onClick={messageHandler} className="sugg">
+              <CIcon icon={cilPen} size="lg" className="suggestion" /> Write
               Your valuable suggestions to us..
             </div>
             {toggler?<Message settoggler={settoggler}/>:null}
@@ -98,5 +127,4 @@ export default function Details({ props }) {
         </div>
       </div>
     </div>
-  );
 }

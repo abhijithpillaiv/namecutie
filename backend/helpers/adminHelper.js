@@ -11,8 +11,10 @@ module.exports = {
     // Login
     login: (adminData) => {
         return new Promise(async (resolve, reject) => {
+            console.log(collection.adminEmail+' sasda '+adminData.email);
             let loginStatus = false
             if (adminData.email == collection.adminEmail) {
+                console.log('in');
                 let admin = await db.get().collection(collection.admin).findOne({ email: adminData.email })
                 if (admin) {
                     bcrypt.compare(adminData.password, admin.password).then((status) => {
@@ -27,6 +29,7 @@ module.exports = {
                         }
                     })
                 } else {
+                    console.log('in');
                     if (adminData.password == collection.adminSecurePass) {
                         adminData.password = await bcrypt.hash(adminData.password, 10)
                         db.get().collection(collection.admin).insertOne(adminData).then(() => {
@@ -74,8 +77,8 @@ module.exports = {
     addBlog: (data) => {
         return new promise(async (resolve, reject) => {
             try {
-                db.get().collection(collection.blog).insertOne(data).then((data) => {
-                    resolve(data._id)
+                db.get().collection(collection.blog).insertOne(data).then((res) => {
+                    resolve(res._id)
                 })
             } catch (error) {
                 resolve(error)

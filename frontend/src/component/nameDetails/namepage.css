@@ -7,14 +7,15 @@
     font-size: 14pt;
 }
 .name{
-    color: #333;
+    color: navy;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: 1000;
     padding-top: 10px;
     padding-bottom: 50px;
     padding-left: 25px;
 }
 .meaning,.gender,.origin{
-    color: black;
+    color: navy;
     text-align: left;
     margin-left: 10px;
     padding-bottom: 20px;
@@ -44,6 +45,7 @@
 .suggestion{
     height: 20px;
     width: auto;
+    text-align: left;
 }
 .sugg{
     padding-top: 50px;

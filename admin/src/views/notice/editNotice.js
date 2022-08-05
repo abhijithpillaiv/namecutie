@@ -24,7 +24,7 @@ function editNotice() {
             'title': title, 'content': content,'id':_id,
         }).then(() => {
             alert("Notice edited sucessfully")
-            setpreview(false)
+            navigate('/notice/viewNotice')
         })
     }
 
@@ -32,10 +32,11 @@ function editNotice() {
         axios.get(port+'api/admin/getSingleNotice/'+id).then((res)=>{
          settitle(res.data.title)
          setcontent(res.data.content)
-         set_id(req.data._id)
+         set_id(res.data._id)
+         console.log(res.data.title);
          setpreview(false)
         })
-     }, []);
+     }, [id]);
 
     return preview?<Lodr/>: <div>
 

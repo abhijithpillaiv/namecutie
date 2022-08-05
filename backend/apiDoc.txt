@@ -192,7 +192,7 @@ api code/doc
 
         Like
 
-              /api/like/:id :
-                                    ip :: params.id(auto generated)
+              /api/like/:id/:val :
+                                    ip :: params.id(auto generated),value(auto generated)
                                     op :: success message
 

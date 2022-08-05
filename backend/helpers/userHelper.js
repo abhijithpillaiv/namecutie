@@ -73,7 +73,7 @@ module.exports = {
         // single Notice
         getSingleNotice: (id) => {
             return new promise(async (resolve, reject) => {
-                let Notice = await db.get().collection(collection.notice).find({_id:ObjectID(id)}).toArray()
+                let Notice = await db.get().collection(collection.notice).findOne({_id:ObjectID(id)})
                 resolve(Notice)
             })
         }, 
@@ -87,18 +87,19 @@ module.exports = {
     },
 
     // like
-    setLike: (id) => {
+    setLike: (body) => {
         return new promise(async (resolve, reject) => {
             try {
-               let name= await db.get().collection(collection.name).findOne({_id:ObjectID(id)});
-               var old_like=name.like;
-                db.get().collection(collection.name).updateOne({ "_id": ObjectID(id) }, {
+            //    let name= await db.get().collection(collection.name).findOne({_id:ObjectID(body.id)});
+            //    var old_like= name.like
+                db.get().collection(collection.name).updateOne({ "_id": ObjectID(body.id) }, {
                     $set: {
-                        like:old_like+1
+                        like:body.like
                     }
                 }).then(() => {
                     resolve('Like updated Sucessfully')
                 })
+               
             } catch (error) {
                 resolve(error)
             }

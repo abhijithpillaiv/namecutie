@@ -165,22 +165,22 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavTitle,
-    name: 'Blogs',
-  },
-  {
-    component: CNavItem,
-    name: 'Add Blog',
-    to: '/blogs/addBlog',
-    icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'View blog',
-    to: '/blogs/viewBlogs',
-    icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Blogs',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Add Blog',
+  //   to: '/blogs/addBlog',
+  //   icon: <CIcon icon={cilPen} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'View blog',
+  //   to: '/blogs/viewBlogs',
+  //   icon: <CIcon icon={cilChart} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'Notice Board',

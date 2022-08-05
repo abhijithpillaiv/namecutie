@@ -31,12 +31,18 @@ const Name = ({ gender, props }) => {
     const editHandler = (_id) => {
         navigate('/names/editName/' + _id)
     }
-    const deleteHandler = (_id,index) => {
+    const deleteHandler = (propIndex,name,_id,index) => {
         setprogress(false)
-        axios.get(collection.port + 'api/admin/deleteName/' + _id).then((res) => {
-           pagination.currentData.splice(index,1)
+        if (window.confirm('Do you want to delete '+name+' ?')) {
+            axios.get(collection.port + 'api/admin/deleteName/' + _id).then((res) => {
+                props.splice(propIndex,1)
+                pagination.currentData.splice(index,1)
+                 setprogress(true)
+             })
+        }
+        else{
             setprogress(true)
-        })
+        }
     }
 
     const clickhandler = (_id) => {
@@ -56,7 +62,8 @@ const Name = ({ gender, props }) => {
             meaning: value.meaning,
             like: value.like,
             gender: value.gender,
-            _id: value._id
+            _id: value._id,
+            propIndex:index
         }))),
         offset: 0,
         numberPerPage: 10,
@@ -112,7 +119,7 @@ const Name = ({ gender, props }) => {
 
                                         <CTableDataCell>
                                             <CIcon onClick={() => editHandler(item._id)} style={{ color: "blue", cursor: 'pointer' }} icon={cilPen} size='lg' />
-                                            <CIcon onClick={() => deleteHandler(item._id,index)} style={{ color: "red", cursor: 'pointer', marginLeft: '20px' }} icon={cilX} size='lg' />
+                                            <CIcon onClick={() => deleteHandler(item.propIndex,item.name,item._id,index)} style={{ color: "red", cursor: 'pointer', marginLeft: '20px' }} icon={cilX} size='lg' />
                                         </CTableDataCell>
 
 

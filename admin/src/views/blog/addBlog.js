@@ -18,7 +18,6 @@ function addBlog() {
     // Handler
     const submitHandler=(event) =>{ 
         event.preventDefault();
-        setpreview(true)
 
         // Formdata
          let formdata = new FormData();
@@ -26,9 +25,10 @@ function addBlog() {
          formdata.append('des',des);
          formdata.append('content',content);
          formdata.append('image',image);
-      
+         setpreview(true)
+
          // Axios 
-         axios({
+                axios({
                 method: 'post',
                 url:port+'api/admin/addBlog',
                 data: formdata,
@@ -36,8 +36,15 @@ function addBlog() {
               }).then((response)=>{
                    setpreview(false)
                    alert('Blog added sucessfully');
-                   navigate(-1)
+                   navigate('/blogs/addBlog')
                 })
+        // if (formdata.image) {
+        //     axios.post(port+'api/admin/addBlog',formdata).then((res)=>{
+        //         setpreview(false)
+        //         alert('Blog added sucessfully');
+        //         navigate('/blogs/addBlog')
+        //     })   
+        // }
     }
     return preview?<Lodr/>: <div>
 
