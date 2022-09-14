@@ -25,6 +25,21 @@ const _nav = [
     },
   },
   {
+    component: CNavItem,
+    name: 'Ads',
+    to: '/ads',
+  },
+  {
+    component: CNavItem,
+    name: 'Meta data',
+    to: '/meta',
+  },
+  {
+    component: CNavItem,
+    name: 'Messages',
+    to: '/messages',
+  },
+  {
     component: CNavTitle,
     name: 'Names',
   },
@@ -199,16 +214,7 @@ const _nav = [
     to: '/notice/viewNotice',
     icon: <CIcon icon={cilReload} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'Ads',
-    to: '/ads',
-  },
-  {
-    component: CNavItem,
-    name: 'Messages',
-    to: '/messages',
-  },
+ 
   {
     component: CNavTitle,
     name: 'Settings',

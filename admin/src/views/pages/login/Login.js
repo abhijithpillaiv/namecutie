@@ -30,7 +30,6 @@ const Login = () => {
 
   const submitHandler = () => {
     axios.post(port+'api/admin' , { 'email': email, 'password': pswd }).then((res) => {
-      console.log(res.data);
       if (res.data) {
         setCookieid('id',res.data,{path:'/'})
         setCookie('status', true, { path: '/' })
@@ -43,7 +42,7 @@ const Login = () => {
   }
   const forgotHandler = () => {
     axios.post(port+'api/admin/forgetPass',{'email':email}).then((res)=>{
-      window.alert("mail sent sucessfully")
+      window.alert("mail sent successfully")
     })
   }
   return forgot?

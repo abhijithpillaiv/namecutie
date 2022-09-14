@@ -22,7 +22,6 @@ export default function SinglePost() {
       method: "get",
       url:port+'api/getBlog/'+id,
     }).then((response)=>{
-      console.log(response.data);
         setres(response.data)
       })
   },[id]);

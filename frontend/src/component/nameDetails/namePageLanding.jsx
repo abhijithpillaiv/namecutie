@@ -13,44 +13,62 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { port } from "../../context/collection";
+import Ads from "../ads/ads";
+import SearchMid from "../mid/searchmid";
+import {search} from '../../context/search'
 
 function NamePageLanding() {
   const { name,id } = useParams();
+  const [serchName, setserchName] = useState('')
+  const [hover, sethover] = useState(null);
   const [data, setdata] = useState(null);
-  const [ads, setads] = useState(null);
+  const [searchdata, setsearchdata] = useState(null);
+  useEffect(() => {
+    if (searchdata) {
+      sethover(null)
+    }
+  }, [searchdata]);
   useEffect(() => {
     axios.get(port+'api/getNames/'+name+'/'+id).then((res)=>{
       setdata(res.data)
     })
-    axios.get(port+'api/getAds').then((res)=>{
-      setads(res.data[0])
-    })
   }, [id,name]);
+  useEffect(() => {
+    if (hover) {
+    }
+  }, [hover]);
   const navigate = useNavigate()
+
   return data?<div className="my">
     <div className="head-top container-fluid">
       <div className="row">
       <div style={{cursor:'pointer'}} onClick={()=>navigate('/')} className="col-3"><img className="logo" src={logo} alt="logo"/></div>
-      {ads? <div className="col-9 ads">{ads.ads}</div>:<div className="col-9 ads">AD GOES HERE</div>}
+      <div className="col-9 ads"><Ads/></div>
       </div>
     </div>
           <Headder  />
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-10 col-sm-8">
+        {/* <div className={hover?"col-lg-4 col-sm-12 col-md-12":"col-lg-8 col-sm-7"}>
           <Strip  />
           </div>
-          <div className="col-lg-2 col-sm-4">
-          <Search />
+          <div className={hover?"col-lg-8 col-sm-12 col-md-12":"col-lg-4 col-sm-5"}>
+          <Search setdata={setsearchdata} hover={hover} sethover={sethover} />
+          </div> */}
+          <div className='col-12'>
+          <Strip  />
           </div>
         </div>
         <div className="row">
           <div className="col-2">
           <Side />
           </div>
+          <search.Provider value={{serchName:serchName,setserchName:setserchName}}>
           <div className="col-10">
-           <Mid  props={data}/>
+          {searchdata?<SearchMid searchdata={searchdata}/>: <Mid  props={data}/>}
           </div>
+          </search.Provider>
+
         </div>
       </div>
       <Fotter />

@@ -23,7 +23,7 @@ function editNotice() {
          axios.post(port + 'api/admin/editNotice', {
             'title': title, 'content': content,'id':_id,
         }).then(() => {
-            alert("Notice edited sucessfully")
+            alert("Notice edited successfully")
             navigate('/notice/viewNotice')
         })
     }
@@ -33,7 +33,6 @@ function editNotice() {
          settitle(res.data.title)
          setcontent(res.data.content)
          set_id(res.data._id)
-         console.log(res.data.title);
          setpreview(false)
         })
      }, [id]);

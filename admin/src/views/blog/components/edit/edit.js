@@ -43,7 +43,7 @@ function Edititem({data}) {
                 headers: { "Content-Type": "multipart/form-data" }
               }).then((response)=>{
                    setlodr(false)
-                   alert('Recipee edited sucessfully');
+                   alert('Recipee edited successfully');
                    history.push('/admin/allRecipes')
                 })
     }

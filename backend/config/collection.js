@@ -11,6 +11,8 @@ module.exports={
     message:'message',
     notice:'notice',
     Ads:'ads',
+    Meta:'meta',
+    ethni:'ethnic',
 
 
     user:'users',
@@ -18,8 +20,4 @@ module.exports={
     admin:'Admin',
     adminEmail:'a',
     adminSecurePass:'a',
-
-    // Order
-    order:'order',
-    income:'income',
 }

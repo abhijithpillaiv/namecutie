@@ -7,33 +7,71 @@ const { resolve, reject } = require('promise');
 const { response } = require('express');
 
 module.exports = {
-    
+
+
+    // search name
+    searchName: (data) => {
+        return new promise(async (resolve, reject) => {
+            console.log(data);
+            let pattern = "^" + data.firstn + ".*" + data.lastn + "$"
+            let name = []
+            if (data.firstn && !data.lastn) {
+                name = await db.get().collection(collection.name).find({ "ethni": { $in: data.eth }, 'gender': { $in: data.gender }, "name": { $regex: '^' + data.firstn, $options: 'i' } }).toArray()
+            }
+            else if (!data.firstn && data.lastn) {
+                name = await db.get().collection(collection.name).find({ "ethni": { $in: data.eth }, 'gender': { $in: data.gender }, "name": { $regex: data.lastn + '$', $options: 'i' } }).toArray()
+            }
+            else if (!data.firstn && !data.lastn) {
+                name = await db.get().collection(collection.name).find({ "ethni": { $in: data.eth }, 'gender': { $in: data.gender } }).toArray()
+            }
+            else {
+                name = await db.get().collection(collection.name).find({ "ethni": { $in: data.eth }, 'gender': { $in: data.gender }, "name": { $regex: pattern, $options: 'i' } }).toArray()
+            }
+            resolve(name)
+        })
+    },
+    // Get ethnic
+    getethi: () => {
+        return new promise(async (resolve, reject) => {
+            let ethni = await db.get().collection(collection.ethni).find().toArray()
+            resolve(ethni)
+        })
+    },
+
     // Name
     getName: (gender) => {
         return new promise(async (resolve, reject) => {
-            let Name = await db.get().collection(collection.name).find({'gender': gender}).toArray()
+            let Name = await db.get().collection(collection.name).find({ 'gender': gender }).toArray()
             resolve(Name)
         })
     },
-        // Name by alphabet
-        getNameAlpha: (char) => {
-            return new promise(async (resolve, reject) => {
-                let Name = await db.get().collection(collection.name).find({"name": {$regex: '^' + char, $options: 'i'}}).toArray()
-                resolve(Name)
-            })
-        },
+    // Name by alphabet
+    getNameAlpha: (char) => {
+        return new promise(async (resolve, reject) => {
+            let Name = await db.get().collection(collection.name).find({ "name": { $regex: '^' + char, $options: 'i' } }).toArray()
+            resolve(Name)
+        })
+    },
+    // Name by ethnic
+    getNameEth: (char) => {
+        return new promise(async (resolve, reject) => {
+            console.log(char);
+            let Name = await db.get().collection(collection.name).find({ "ethni": char }).toArray()
+            console.log(Name);
+            resolve(Name)
+        })
+    },
 
     // Get single name
     getSingleName: (id) => {
-        console.log('in'+id);
         return new promise(async (resolve, reject) => {
-            let Name = await db.get().collection(collection.name).findOne({_id:ObjectID(id)})
+            let Name = await db.get().collection(collection.name).findOne({ _id: ObjectID(id) })
             resolve(Name);
         })
     },
-    getSingleNamev2: (name) => {
+    getSingleNamev2: (id) => {
         return new promise(async (resolve, reject) => {
-            let Name = await db.get().collection(collection.name).findOne({'name':name})
+            let Name = await db.get().collection(collection.name).findOne({ _id: ObjectID(id) })
             resolve(Name);
         })
     },
@@ -46,19 +84,19 @@ module.exports = {
             resolve(Blog)
         })
     },
-        // Get single blog
-        getSingleBlog: (id) => {
-            return new promise(async (resolve, reject) => {
-                let blog = await db.get().collection(collection.blog).findOne({_id:ObjectID(id)})
-                resolve(blog);
-            })
-        },
+    // Get single blog
+    getSingleBlog: (id) => {
+        return new promise(async (resolve, reject) => {
+            let blog = await db.get().collection(collection.blog).findOne({ _id: ObjectID(id) })
+            resolve(blog);
+        })
+    },
 
     // Set message
     setMessage: (data) => {
         return new promise(async (resolve, reject) => {
             db.get().collection(collection.message).insertOne(data).then(() => {
-                resolve('Message sent sucessfully')
+                resolve('Message sent successfully')
             })
         })
     },
@@ -69,17 +107,24 @@ module.exports = {
             let Notice = await db.get().collection(collection.notice).find().toArray()
             resolve(Notice)
         })
-    },  
-        // single Notice
-        getSingleNotice: (id) => {
-            return new promise(async (resolve, reject) => {
-                let Notice = await db.get().collection(collection.notice).findOne({_id:ObjectID(id)})
-                resolve(Notice)
-            })
-        }, 
-    
-      // Ads
-      getAds: () => {
+    },
+    // single Notice
+    getSingleNotice: (id) => {
+        return new promise(async (resolve, reject) => {
+            let Notice = await db.get().collection(collection.notice).findOne({ _id: ObjectID(id) })
+            resolve(Notice)
+        })
+    },
+
+    // Meta
+    getMeta: () => {
+        return new promise(async (resolve, reject) => {
+            let Meta = await db.get().collection(collection.Meta).find().toArray()
+            resolve(Meta)
+        })
+    },
+    // Ads
+    getAds: () => {
         return new promise(async (resolve, reject) => {
             let Ads = await db.get().collection(collection.Ads).find().toArray()
             resolve(Ads)
@@ -90,19 +135,31 @@ module.exports = {
     setLike: (body) => {
         return new promise(async (resolve, reject) => {
             try {
-            //    let name= await db.get().collection(collection.name).findOne({_id:ObjectID(body.id)});
-            //    var old_like= name.like
+                //    let name= await db.get().collection(collection.name).findOne({_id:ObjectID(body.id)});
+                //    var old_like= name.like
                 db.get().collection(collection.name).updateOne({ "_id": ObjectID(body.id) }, {
                     $set: {
-                        like:body.like
+                        like: body.like
                     }
                 }).then(() => {
-                    resolve('Like updated Sucessfully')
+                    resolve('Like updated Successfully')
                 })
-               
+
             } catch (error) {
                 resolve(error)
             }
         })
     },
+    getLike: (id) => {
+        return new promise(async (resolve, reject) => {
+            try {
+                let name = await db.get().collection(collection.name).findOne({ _id: ObjectID(id) });
+                resolve(name.like)
+
+
+            } catch (error) {
+                resolve(error)
+            }
+        })
+    }
 }

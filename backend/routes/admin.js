@@ -214,14 +214,12 @@ router.get('/deleteMessage/:id', function (req, res) {
 
 // Add Blog
 router.post('/addBlog',upload.single('image'),((req, res)=> {
-  console.log(req.file);
   if (req.file != undefined) {
     const arrayOfStrings = req.file.path.split('/')
     req.body.image = arrayOfStrings[2]
   }
   adminHelper.addBlog(req.body).then((response) => {
     res.json(response)
-    console.log(response);
   })
 }));
 
@@ -257,12 +255,6 @@ router.get('/getBlog/:id',((req,res)=>{
 
 /////////////////////////////////////////////// section ads
 
-// Get Ads
-router.get('/getAds',((req,res)=>{
-  userHelper.getAds().then((response)=>{
-    res.send(response)
-  })
-}));
 // Add Ads
 router.post('/addAds', function (req, res) {
   adminHelper.addAds(req.body).then((response) => {
@@ -280,5 +272,13 @@ router.get('/deleteAds/:id', function (req, res) {
   }
 });
 
+/////////////////////////////////////////////// section Meta
+
+// Add Meta
+router.post('/addMeta', function (req, res) {
+  adminHelper.addMeta(req.body).then((response) => {
+    res.json(response)
+  })
+});
 
 module.exports = router;

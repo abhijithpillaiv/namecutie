@@ -47,8 +47,8 @@ const handlePageClick = event => {
         </div>
       </div>
      {pagination.currentData? <ReactPaginate
-                previousLabel={'previous'}
-                nextLabel={'next'}
+                previousLabel={'<   '}
+                nextLabel={'   >'}
                 breakLabel={'...'}
                 pageCount={pagination.pageCount}
                 marginPagesDisplayed={2}

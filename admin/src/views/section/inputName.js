@@ -12,18 +12,19 @@ import { useNavigate } from 'react-router-dom';
 export default function inputName({ edit, props }) {
     // states
     const [progress, setprogress] = useState(true)
-    const [name, setname] = useState(null);
-    const [meaning, setmeaning] = useState(null);
+    const [name, setname] = useState('');
+    const [meaning, setmeaning] = useState('');
     const [ethi, setethi] = useState([]);
-    const [gender, setgender] = useState(null);
-    const [_id, set_id] = useState(null);
-    const [val, setval] = useState(null);
+    const [gender, setgender] = useState('');
+    const [_id, set_id] = useState('');
+    const [val, setval] = useState('');
 
 
     const navigate = useNavigate();
 
     const addHandler = () => {
         val ? setethi(ethi => [...ethi, val]) : null
+        setval('')
     }
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function inputName({ edit, props }) {
             axios.post(collection.port + 'api/admin/editName', {
                 'name': name, 'gender': gender, 'meaning': meaning, 'ethni': ethi, 'like': 0, "id": _id,
             }).then(() => {
-                alert("Names edited sucessfully")
+                alert("Names edited successfully")
                 setprogress(false)
                 navigate(-1)
             })
@@ -58,19 +59,19 @@ export default function inputName({ edit, props }) {
             axios.post(collection.port + 'api/admin/addName', {
                 'name': name, 'gender': gender, 'meaning': meaning, 'ethni': ethi, 'like': 0
             }).then(() => {
-                alert("Name added sucessfully")
+                alert("Name added successfully")
                 resetHandler()
                 setprogress(false)
             })
         }
     }
 
-    const resetHandler = (e) => {
-        setname(null)
-        setgender(null)
-        setmeaning(null)
+    const resetHandler = () => {
+        setname('')
+        setgender('')
+        setmeaning('')
         setethi([])
-        setgender(null)
+        setgender('')
     }
     const deleteHandler = (props) => {
         props ? setethi(ethi => ethi.filter(ethi => ethi !== props)) : null
@@ -105,7 +106,7 @@ export default function inputName({ edit, props }) {
             <CFormLabel htmlFor="ethnic" className="col-sm-2 col-form-label">Ethnic</CFormLabel>
             {ethi ? ethi.map((data, index) => <span key={index}>{data}  <CIcon style={{ cursor: 'pointer', color: 'red' }} onClick={(e) => deleteHandler(data)} icon={cilX} /> , </span>) : null}
             <CInputGroup size='sm' className="mt-3 mb-3">
-                <CFormInput placeholder='add new value' onChange={(e) => setval(e.target.value)} type="text" id="ethnic" />
+                <CFormInput  placeholder='add new value' value={val} onChange={(e) => setval(e.target.value)} type="text"  />
                 <CInputGroupText style={{ cursor: 'pointer' }} onClick={addHandler}>Click to add <CIcon icon={cilCheck}></CIcon></CInputGroupText>
             </CInputGroup>
         </div>

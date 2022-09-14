@@ -15,6 +15,7 @@ const addblog = React.lazy(() => import('./views/blog/addBlog'));
 const viewBlogs = React.lazy(() => import('./views/blog/viewBlogs'));
 
 const ads = React.lazy(() => import('./views/ads/adspage'))
+const meta = React.lazy(() => import('./views/meta/meta'))
 const message = React.lazy(() => import('./views/message/message'))
 
 const notice = React.lazy(() => import('./views/notice/addNotice'))
@@ -69,6 +70,8 @@ const routes = [
   { path: '/blogs/viewBlogs', name: 'blog / View blogs', element: viewBlogs },
 
   { path: '/ads', name: 'Ads', element: ads },
+  { path: '/meta', name: 'Meta Data', element: meta },
+
   { path: '/messages', name: 'Messages', element: message },
 
   { path: '/notice/addNotice', name: 'notice / Add Notice', element: notice },

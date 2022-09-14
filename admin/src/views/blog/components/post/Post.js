@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { port } from '../../../../assets/collection';
 
 export default function Post({ post }) {
-  console.log(post);
   const PF = port+"image/";
   return (
     <div className="post">

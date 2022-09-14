@@ -18,7 +18,7 @@ function Message({settoggler}) {
          axios.post(port + 'api/setMessage', {
             'name': name, 'email': email, 'content': content,
         }).then(() => {
-            alert("Message sent sucessfully")
+            alert("Message sent successfully")
             settoggler(false)
             setpreview(false)
         })

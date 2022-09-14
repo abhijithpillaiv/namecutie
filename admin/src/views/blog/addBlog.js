@@ -35,13 +35,13 @@ function addBlog() {
                 headers: { "Content-Type": "multipart/form-data" }
               }).then((response)=>{
                    setpreview(false)
-                   alert('Blog added sucessfully');
+                   alert('Blog added successfully');
                    navigate('/blogs/addBlog')
                 })
         // if (formdata.image) {
         //     axios.post(port+'api/admin/addBlog',formdata).then((res)=>{
         //         setpreview(false)
-        //         alert('Blog added sucessfully');
+        //         alert('Blog added successfully');
         //         navigate('/blogs/addBlog')
         //     })   
         // }

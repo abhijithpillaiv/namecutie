@@ -20,7 +20,7 @@ function addNotice() {
          axios.post(port + 'api/admin/addNotice', {
             'title': title, 'content': content
         }).then(() => {
-            alert("Notice added sucessfully")
+            alert("Notice added successfully")
             setpreview(false)
         })
     }

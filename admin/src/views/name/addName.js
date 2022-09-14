@@ -21,7 +21,6 @@ export default function addName() {
                 const worksheet = workbook.Sheets[sheetName];
                 const json = xlsx.utils.sheet_to_json(worksheet);
                 setdata(json)
-                console.log(json);
             };
             reader.readAsArrayBuffer(state.target.files[0]);
         }
@@ -41,17 +40,17 @@ export default function addName() {
 
     // Accept form data
     const submitHandler = (event) => {
-        //event.preventDefault();
         for (let i = 0; i < data.length; i++) {
             var eth = [];
             for (let j = 0; j < 100; j++) {
                 data[i][j] ? eth.push(data[i][j]) : null;
             }
+            console.log(eth);
             axios.post(collection.port + 'api/admin/addName', {
                 'name': data[i].Name, 'gender': data[i].Gender, 'meaning': data[i].Meaning, 'ethni': eth, 'like': 0
             }).then(() => {})
         }
-        alert("Names added sucessfully")
+        alert("Names added successfully")
         setprogress(false)
     }
 

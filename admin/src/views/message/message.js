@@ -17,7 +17,6 @@ export default function CollapsibleTable() {
   useEffect(() => {
     axios.get(port+'api/admin/getMessage').then((resolve)=>{
       setres(resolve.data);
-      console.log(resolve.data);
       setlodr(true);
     })
   }, [lodr])

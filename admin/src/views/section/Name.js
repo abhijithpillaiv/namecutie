@@ -17,10 +17,14 @@ import {
     CTableHead,
     CTableHeaderCell,
     CTableRow,
+    CInputGroup,
+    CFormInput,
+    CInputGroupText,
 } from '@coreui/react'
 import {
     cilHeart,
     cilPen,
+    cilSearch,
     cilX,
 } from '@coreui/icons'
 import axios from 'axios';
@@ -31,16 +35,16 @@ const Name = ({ gender, props }) => {
     const editHandler = (_id) => {
         navigate('/names/editName/' + _id)
     }
-    const deleteHandler = (propIndex,name,_id,index) => {
+    const deleteHandler = (propIndex, name, _id, index) => {
         setprogress(false)
-        if (window.confirm('Do you want to delete '+name+' ?')) {
+        if (window.confirm('Do you want to delete ' + name + ' ?')) {
             axios.get(collection.port + 'api/admin/deleteName/' + _id).then((res) => {
-                props.splice(propIndex,1)
-                pagination.currentData.splice(index,1)
-                 setprogress(true)
-             })
+                props.splice(propIndex, 1)
+                pagination.currentData.splice(index, 1)
+                setprogress(true)
+            })
         }
-        else{
+        else {
             setprogress(true)
         }
     }
@@ -53,6 +57,7 @@ const Name = ({ gender, props }) => {
     }
 
     const [progress, setprogress] = useState(true);
+    const [Search, setSearch] = useState(null);
 
 
     //pagination 
@@ -63,7 +68,7 @@ const Name = ({ gender, props }) => {
             like: value.like,
             gender: value.gender,
             _id: value._id,
-            propIndex:index
+            propIndex: index
         }))),
         offset: 0,
         numberPerPage: 10,
@@ -83,11 +88,80 @@ const Name = ({ gender, props }) => {
         const offset = selected * pagination.numberPerPage
         setPagination({ ...pagination, offset })
     }
+    let serchList = null;
+
 
     return (
-        progress && pagination.currentData ? <div><CRow>
+       Search ?  <div><CRow>
+       <CCard className="mb-0">
+           <CCardBody>
+               <CInputGroup className="flex-nowrap">
+                   <CInputGroupText id="addon-wrapping"><CIcon icon={cilSearch} /></CInputGroupText>
+                   <CFormInput onChange={(e)=>setSearch(e.target.value)} placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping" />
+               </CInputGroup>
+               <CCol >
+                   <div style={{ fontFamily: 'sans-serif', fontSize: 'x-large', textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>{gender}</div>
+                   <br />
+                   <CTable style={{ cursor: 'pointer' }} align="middle" className="mb-0 border" hover responsive>
+                       <CTableHead color="light">
+                           <CTableRow>
+                               <CTableHeaderCell>Name</CTableHeaderCell>
+                               <CTableHeaderCell >Meaning</CTableHeaderCell>
+                               <CTableHeaderCell >Likes</CTableHeaderCell>
+                               <CTableHeaderCell >Edit/Delete</CTableHeaderCell>
+                           </CTableRow>
+                       </CTableHead>
+                       <CTableBody>
+                           {props ?props.sort((obj,obj2)=>obj.select===obj2.select?obj.name.toLowerCase()>obj2.name.toLowerCase()?1:-1:obj.select==='true'?-1:1)
+                              .filter((obj)=>{
+                                if(Search === ''){
+                                    serchList = obj
+                                }
+                                else if(obj.name.toString().toLowerCase().includes(Search.toString().toLowerCase())){
+                                    serchList = obj
+                                }
+                                else{}
+                                return serchList
+                            }).map((item, index) => (
+                               <CTableRow v-for="item in tableItems" key={index}>
+
+                                   <CTableDataCell onClick={() => clickhandler(item._id)}>
+                                       <div>{item.name}</div>
+                                   </CTableDataCell>
+
+                                   <CTableDataCell onClick={() => clickhandler(item._id)}>
+                                       <strong>{item.meaning}</strong>
+                                   </CTableDataCell>
+
+                                   <CTableDataCell onClick={() => clickhandler(item._id)}>
+                                       <CIcon icon={cilHeart} size='sm' />
+                                       <span style={{ fontSize: 'small' }}>   {item.like}</span>
+                                   </CTableDataCell>
+
+                                   <CTableDataCell>
+                                       <CIcon onClick={() => editHandler(item._id)} style={{ color: "blue", cursor: 'pointer' }} icon={cilPen} size='lg' />
+                                       <CIcon onClick={() => deleteHandler(item.propIndex, item.name, item._id, index)} style={{ color: "red", cursor: 'pointer', marginLeft: '20px' }} icon={cilX} size='lg' />
+                                   </CTableDataCell>
+
+
+                               </CTableRow>
+                           )):null}
+                       </CTableBody>
+                   </CTable>
+               </CCol>
+               {/* <CIcon icon={cilPuzzle} size='sm'/> */}
+
+           </CCardBody>
+
+       </CCard>
+   </CRow>
+   </div> : progress && pagination.currentData ? <div><CRow>
             <CCard className="mb-0">
                 <CCardBody>
+                    <CInputGroup className="flex-nowrap">
+                        <CInputGroupText id="addon-wrapping"><CIcon icon={cilSearch} /></CInputGroupText>
+                        <CFormInput onChange={(e)=>setSearch(e.target.value)} placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping" />
+                    </CInputGroup>
                     <CCol >
                         <div style={{ fontFamily: 'sans-serif', fontSize: 'x-large', textAlign: 'center', fontWeight: 'bold', color: 'blue' }}>{gender}</div>
                         <br />
@@ -119,7 +193,7 @@ const Name = ({ gender, props }) => {
 
                                         <CTableDataCell>
                                             <CIcon onClick={() => editHandler(item._id)} style={{ color: "blue", cursor: 'pointer' }} icon={cilPen} size='lg' />
-                                            <CIcon onClick={() => deleteHandler(item.propIndex,item.name,item._id,index)} style={{ color: "red", cursor: 'pointer', marginLeft: '20px' }} icon={cilX} size='lg' />
+                                            <CIcon onClick={() => deleteHandler(item.propIndex, item.name, item._id, index)} style={{ color: "red", cursor: 'pointer', marginLeft: '20px' }} icon={cilX} size='lg' />
                                         </CTableDataCell>
 
 

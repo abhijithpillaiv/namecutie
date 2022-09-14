@@ -13,7 +13,6 @@ export default function singleName() {
   const [data, setdata] = useState(null)
   const getData=()=>{
     axios.get(collection.port+'api/admin/getName/'+id).then((res)=>{
-      console.log(res.data);
       setdata(res.data)
     })
   }

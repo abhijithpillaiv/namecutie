@@ -5,7 +5,7 @@ var collection = require('../config/collection');
 const { ObjectID } = require('bson');
 const { resolve, reject } = require('promise');
 const { response } = require('express');
-const { student } = require('../config/collection');
+const { student, ethni } = require('../config/collection');
 
 module.exports = {
     // Login
@@ -15,7 +15,6 @@ module.exports = {
             if (adminData.email == collection.adminEmail) {
                 let admin = await db.get().collection(collection.admin).findOne({ email: adminData.email })
                 if (admin) {
-                    console.log('in');
                     bcrypt.compare(adminData.password, admin.password).then((status) => {
                         if (status) {
                             console.log('login success')
@@ -30,7 +29,8 @@ module.exports = {
                     if (adminData.password == collection.adminSecurePass) {
                         adminData.password = await bcrypt.hash(adminData.password, 10)
                         db.get().collection(collection.admin).insertOne(adminData).then((res) => {
-                            resolve(res)
+                            console.log(res.ops._id);
+                            resolve(res.ops._id)
                         })
                     } else {
                         loginStatus = false
@@ -94,7 +94,7 @@ module.exports = {
                         content: data.content,
                     }
                 }).then(() => {
-                    resolve("blog Updated Sucessfully")
+                    resolve("blog Updated Successfully")
                 })
             } catch (error) {
                 resolve(error)
@@ -107,7 +107,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             // Remove blog
             db.get().collection(collection.blog).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("blog removed sucessfully")
+                resolve("blog removed successfully")
             })
         })
     },
@@ -117,8 +117,12 @@ module.exports = {
     // Add new Name
     addName: (data) => {
         return new promise(async (resolve, reject) => {
-            console.log(data);
             try {
+                for (let i = 0; i < data.ethni.length; i++) {
+                        if (!await db.get().collection(collection.ethni).findOne({ 'value': data.ethni[i] })) {
+                            await db.get().collection(collection.ethni).insertOne({ 'value': data.ethni[i],'label': data.ethni[i]})
+                        }
+                }
                 db.get().collection(collection.name).insertOne(data).then((data) => {
                     resolve(data._id)
                 })
@@ -137,10 +141,10 @@ module.exports = {
                         gender: data.gender,
                         meaning: data.meaning,
                         ethni: data.ethni,
-                        like:data.like,
+                        like: data.like,
                     }
                 }).then((data) => {
-                    resolve('name updated Sucessfully')
+                    resolve('name updated Successfully')
                 })
             } catch (error) {
                 resolve(error)
@@ -151,7 +155,7 @@ module.exports = {
     deleteName: (id) => {
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.name).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("name removed sucessfully")
+                resolve("name removed successfully")
             })
         })
     },
@@ -170,7 +174,7 @@ module.exports = {
     deleteMsg: (id) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.message).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("message removed Sucessfully")
+                resolve("message removed Successfully")
             })
         })
     },
@@ -199,7 +203,7 @@ module.exports = {
                         content: data.content,
                     }
                 }).then((data) => {
-                    resolve('notice updated Sucessfully')
+                    resolve('notice updated Successfully')
                 })
             } catch (error) {
                 resolve(error)
@@ -211,19 +215,19 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             // Remove notice
             db.get().collection(collection.notice).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("notice removed sucessfully")
+                resolve("notice removed successfully")
             })
         })
     },
 
     ///////////////////////////////////////// section ads
 
-     // Add new Ads
-     addAds: (data) => {
+    // Add new Ads
+    addAds: (data) => {
         return new promise(async (resolve, reject) => {
             try {
                 db.get().collection(collection.Ads).insertOne(data).then((data) => {
-                    resolve('Ads added Sucessfully')
+                    resolve('Ads added Successfully')
                 })
             } catch (error) {
                 resolve(error)
@@ -234,9 +238,40 @@ module.exports = {
     deleteAds: (id) => {
         return new Promise(async (resolve, reject) => {
             db.get().collection(collection.Ads).removeOne({ _id: ObjectID(id) }).then((response) => {
-                resolve("Ads removed sucessfully")
+                resolve("Ads removed successfully")
             })
         })
     },
 
+        ///////////////////////////////////////// section meta
+
+    // Add new Meta
+    addMeta: (data) => {
+        return new promise(async (resolve, reject) => {
+            console.log(data.id);
+            try {
+               if (data.id) {
+                console.log('updating meta');
+                db.get().collection(collection.Meta).updateOne({ "_id": ObjectID(data.id)}, {
+                    $set: {
+                        title: data.title,
+                        des: data.des,
+                        keyword:data.keyword
+                    }
+                }).then(() => {
+                    resolve('Meta updated Successfully')
+                })
+               }
+               else{
+                console.log('adding new meta');
+                db.get().collection(collection.Meta).insertOne(data).then(() => {
+                    resolve('Meta added Successfully')
+                })
+               }
+                    
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    },
 }

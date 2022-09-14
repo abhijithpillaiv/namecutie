@@ -1,26 +1,23 @@
-import { Link } from 'react-router-dom';
-import './headder.css'
+import React, { useState } from 'react'
+import axios from "axios";
+import { port } from "../../context/collection";
+import Headder from './headdersub';
+import { useEffect } from 'react';
 
-export default function Headder() {
-  return (
-    <div className='container-fluid'>
-      <div className="head-down row">
-        <div className="head col-3">
-          <Link  to={{pathname:'/nameOf/BOYS'}} ><span className="letter">Boys</span></Link>          
-        </div>
-        <div className="head col-2">
-        <Link to={{pathname:'/nameOf/GIRLS'}}  ><span className="letter">Girls</span></Link>           
-        </div>
-        <div className="head col-3">
-        <Link to={{pathname:'/nameOf/UNISEX'}} ><span className="letter">Unisex</span></Link>          
-        </div>
-        {/* <div className="head col-2">
-        <Link to={{pathname:'/blog'}}><span style={{paddingLeft:'10px'}} className="letter">Blogs</span></Link>           
-        </div> */}
-        <div className="head col-4">
-        <Link to={{pathname:'/names/mostLiked'}}><span className="letter">Most liked</span></Link>           
-        </div>
-      </div>
-    </div>
-  );
+const Header = () => {
+  const [ethni, setethni] = useState(null);
+  useEffect(() => {
+    if (!ethni) {
+      axios.get(port + "api/getEthni").then((res) => {
+        console.log(res.data);
+        setethni(res.data);
+      });
+    }
+  }, [ethni]);
+return (
+  ethni?<Headder props={ethni}/>:null
+)
 }
+
+export default Header;
+

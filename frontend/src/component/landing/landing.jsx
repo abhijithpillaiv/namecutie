@@ -1,62 +1,92 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Headder from "../Headder/headder";
 import Mid from "../mid/mid";
 import Strip from "../strip/strip";
 import Fotter from "../fotter/fotter";
 import Search from "../search/search";
-import Notice from '../notice/notice'
-import './landing.css'
-import logo from '../../static/logo.png'
+import Notice from "../notice/notice";
+import SearchMid from "../mid/searchmid";
+import "./landing.css";
+import logo from "../../static/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
-import { port } from "../../context/collection";
-import axios from "axios";
-import {search} from '../../context/search'
+import { useState } from "react";
+import { search } from "../../context/search";
+import Ads from "../ads/ads";
 
 function Landing() {
-  const [ads, setads] = useState(null);
-  let {letter}=useParams()
-  const navigate = useNavigate()
-
+  let { letter } = useParams();
+  const navigate = useNavigate();
+  const [hover, sethover] = useState(null);
+  const [serchName, setserchName] = useState("");
+  const [data, setdata] = useState(null);
   useEffect(() => {
-    axios.get(port+'api/getAds').then((res)=>{
-      setads(res.data[0])
-    })
-  }, []);
-  const [serchName, setserchName] = useState('')
-  
-  return  <div className="my">
-    <div className="head-top container-fluid">
-      <div className="row">
-      <div style={{cursor:'pointer'}} onClick={()=>navigate('/')} className="col-3"><img className="logo" src={logo} alt="logo"/></div>
-      {ads? <div className="col-9 ads">{ads.ads}</div>:<div className="col-9 ads">AD GOES HERE</div>}
+    setdata(null);
+    sethover(null);
+  }, [letter]);
+  useEffect(() => {
+    if (data) {
+      sethover(null);
+    }
+  }, [data]);
+  return (
+    <div className="my">
+      <div className="head-top container-fluid">
+        <div className="row">
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+            className="col-3"
+          >
+            <img className="logo" src={logo} alt="logo" />
+          </div>
+          <div className="col-9 ads">
+            <Ads />
+          </div>
+        </div>
       </div>
-    </div>
-          <Headder  />
+      <Headder />
       <div className="container-fluid">
-      <search.Provider value={{serchName:serchName,setserchName:setserchName}}>
-        <div className="row">
-        <div className="col-lg-3 col-sm-3">
-          <Notice/>
+        <search.Provider
+          value={{ serchName: serchName, setserchName: setserchName }}
+        >
+          <div className="row">
+            <div
+              className={
+                hover ? "col-lg-2 col-sm-4 col-md-4" : "col-lg-3 col-sm-3"
+              }
+            >
+              <Notice />
+            </div>
+            <div
+              className={
+                hover ? "col-lg-3 col-sm-8 col-md-8" : "col-lg-6 col-sm-5"
+              }
+            >
+              <Strip />
+            </div>
+            <div
+              className={
+                hover ? "col-lg-7 col-sm-12 col-md-12" : "col-lg-3 col-sm-4"
+              }
+            >
+              <Search setdata={setdata} hover={hover} sethover={sethover} />
+            </div>
           </div>
-          <div className="col-lg-7 col-sm-6">
-          <Strip  />
+          <div className="row">
+            <div className="col-lg-3 col-sm-12">
+              <Ads />
+            </div>
+            <div className="col-lg-9 col-sm-12">
+              {data ? <SearchMid data={data} /> : <Mid mid={letter} />}
+            </div>
           </div>
-          <div className="col-lg-2 col-sm-3">
-          <Search />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12 ">
-          <Mid  mid={letter}/>
-          </div>
-        </div>
         </search.Provider>
-
       </div>
-      <Fotter />
-
+      <div style={{paddingTop:'0px'}}>
+        <Fotter />
+      </div>
     </div>
+  );
 }
 
 export default Landing;

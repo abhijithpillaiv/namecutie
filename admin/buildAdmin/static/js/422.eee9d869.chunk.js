@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunk_avp_10g=self.webpackChunk_avp_10g||[]).push([[422],{19422:function(n,t,u){u.r(t),u.d(t,{default:function(){return r}});var e=u(70885),i=u(72791),s=u(74673),a=u(16871),c=u(80184);function r(){var n=(0,s.Z)(["status"]),t=(0,e.Z)(n,3),u=(t[0],t[1],t[2]),r=(0,s.Z)(["id"]),f=(0,e.Z)(r,3),o=(f[0],f[1],f[2]),d=(0,a.s0)();return(0,i.useEffect)((function(){u("status"),o("id"),d("/"),window.location.reload(!1)}),[]),(0,c.jsx)("div",{children:"Logging Out..."})}}}]);
+//# sourceMappingURL=422.eee9d869.chunk.js.map

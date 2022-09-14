@@ -13,16 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { port } from "../../context/collection";
+import Ads from "../ads/ads";
 
 function ViewBlogs() {
   const [post, setpost] = useState(null);
-  const [ads, setads] = useState(null);
   useEffect(() => {
     axios.get(port + 'api/getBlog').then((res) => {
       setpost(res.data)
-    })
-    axios.get(port + 'api/getAds').then((res) => {
-      setads(res.data[0])
     })
   }, []);
   const navigate = useNavigate()
@@ -30,7 +27,7 @@ function ViewBlogs() {
     <div className="head-top container-fluid">
       <div className="row">
         <div style={{ cursor: 'pointer' }} onClick={() => navigate('/')} className="col-3"><img className="logo" src={logo} alt="logo" /></div>
-        {ads ? <div className="col-9 ads">{ads.ads}</div> : <div className="col-9 ads">AD GOES HERE</div>}
+         <div className="col-9 ads"><Ads/></div> 
       </div>
     </div>
     <Headder />

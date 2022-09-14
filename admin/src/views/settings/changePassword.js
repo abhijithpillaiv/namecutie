@@ -21,13 +21,14 @@ import { port } from '../../assets/collection';
 
 const Login = () => {
   const navigate=useNavigate()
-  const [cookies, setCookie] = useCookies(['id']);
+  const [cookiesid, setCookieid] = useCookies(['id']);
   const [pswd, setpswd] = useState(null);
 
 
+
   const submitHandler = () => {
-    axios.post(port+'api/admin/updatePass' , { 'id': cookies.id, 'password': pswd }).then((res) => {
-      window.alert("Password changed sucessfully.")
+    axios.post(port+'api/admin/updatePass' , { 'id': cookiesid.id, 'password': pswd }).then((res) => {
+      window.alert("Password changed successfully.")
       navigate('/logout')
     })
   }
