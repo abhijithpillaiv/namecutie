@@ -1,6 +1,7 @@
-import React ,{ useEffect,useState } from 'react'
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./headder.css";
+import Search from "../search/search";
 import {
   CDropdown,
   CDropdownToggle,
@@ -9,14 +10,39 @@ import {
   CNavbarNav,
 } from "@coreui/react";
 import ReactPaginate from "react-paginate";
+import { MDBCol, MDBIcon } from "mdbreact";
 
 export default function Headder({props}) {
 
+
+  const [serchName, setsearch] = useState('');
+  useEffect(() => {
+      setPagination({
+      data: props.sort((a, b) => (a.value > b.value ? 1 : -1))
+        .filter((obj)=>{
+          if(serchName === ''){
+              return obj
+          }
+          else if(obj.value.toString().toLowerCase().includes(serchName.toString().toLowerCase())){
+              return obj
+          }
+          else{}
+             return null
+      }).map((valu)=>({val:valu.value})),
+          offset: 0,
+          numberPerPage: 20,
+          pageCount: 0,
+          currentData: [],
+        })
+  }, [serchName]);
+
   //pagination
-  const [pagination, setPagination] = useState({
-    data: props.sort((a, b) => a.value > b.value ? 1 : -1).map((valu) => ({
-      val:valu.value
-    })),
+   const [pagination, setPagination] = useState({
+    data: props
+      .sort((a, b) => (a.value > b.value ? 1 : -1))
+      .map((valu) => ({
+        val: valu.value,
+      })),
     offset: 0,
     numberPerPage: 20,
     pageCount: 0,
@@ -32,24 +58,44 @@ export default function Headder({props}) {
         pagination.offset + pagination.numberPerPage
       ),
     }));
-  }, [pagination.numberPerPage, pagination.offset]);
+  }, [pagination.numberPerPage, pagination.offset,pagination.data]);
+
   const handlePageClick = (event) => {
     const selected = event.selected;
     const offset = selected * pagination.numberPerPage;
     setPagination({ ...pagination, offset });
   };
 
-  return pagination.currentData ? (
+ return pagination.currentData ? (
     <div className="container-fluid">
       <div className="head-down row">
         <div className="head col-4">
           <CNavbarNav role="string">
-            <CDropdown autoClose="outside" placement="bottom" variant="nav-item">
+            <CDropdown
+              autoClose="outside"
+              placement="bottom"
+              variant="nav-item"
+            >
               <CDropdownToggle>
                 <span className="letter">Ethnic</span>
               </CDropdownToggle>
               <CDropdownMenu>
-             <span className="ddsection" style={{color:'blue'}}>Choose from the given Ethnic.</span> 
+              <span className="ddsection" style={{ color: "blue" }}>
+                  Search from the given Ethnic.
+                </span>
+                <MDBCol md="60">
+                  <div className="form-inline mt-4 mb-4">
+                    <MDBIcon icon="search" />
+                    <input
+                      className="form-control form-control-sm ml-3 w-75"
+                      onChange={(e) => setsearch(e.target.value)}
+                      type="text"
+                      placeholder="Search"
+                      aria-label="Search"
+                      value={serchName}
+                    />
+                  </div>
+                </MDBCol>
                 <CDropdownDivider />
                 {pagination.currentData.map((item, index) => {
                   return (

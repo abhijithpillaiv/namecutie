@@ -14,6 +14,7 @@ const Header = () => {
       });
     }
   }, [ethni]);
+
 return (
   ethni?<Headder props={ethni}/>:null
 )
