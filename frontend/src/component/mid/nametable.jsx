@@ -35,13 +35,13 @@ const handlePageClick = event => {
     setPagination({ ...pagination, offset })
 }
 
-  return pagination.currentData ?
+  return props&&pagination.currentData ?
     <div className="tab-content" id="myTabContent">
       <div className="tab-pane fade active show" id="home" role="tabpanel">
         <div className="table-responsive">
           <table className="table table-striped">
             <tbody>
-            {pagination.currentData.map((item, index)=><Namepad key={index} props={item} />)}
+            {props&&pagination.currentData.map((item, index)=><Namepad key={index} props={item} />)}
             </tbody>
           </table>
         </div>

@@ -70,7 +70,6 @@ export default function Details({ props }) {
 
   useEffect(() => {
     axios.get(port+'api/getmeta').then((res)=>{
-      console.log(res.data);
       if (res.data.length!==0) {
         if (res.data[0].title) {
           settitle(eval(res.data[0].title))
@@ -85,9 +84,9 @@ export default function Details({ props }) {
         setprogress(true)
     })
   }, [])
-  let titl = name+" Baby Name Meaning, Populariy, Origin & Definition - NameCutie.com";
-  let de ="Looking for a perfect name for your kid? "+name+" may be a perfect one for your cutie pie. Search here for more wonderful names from around the world."+gender+" "+name+" Meaning, Numerology, information."
-  let keywor= name+"baby name Meaning, "+name+"baby name definition, "+name+" baby name origin, "+name+" baby name rakshi, "+name+" baby name Nakshtram, "+name+" baby name lucky no, "+origin+" name meaning, "+gender+" name details"
+  //let titl = name+" Baby Name Meaning, Populariy, Origin & Definition - NameCutie.com";
+  //let de ="Looking for a perfect name for your kid? "+name+" may be a perfect one for your cutie pie. Search here for more wonderful names from around the world."+gender+" "+name+" Meaning, Numerology, information."
+  //let keywor= name+"baby name Meaning, "+name+"baby name definition, "+name+" baby name origin, "+name+" baby name rakshi, "+name+" baby name Nakshtram, "+name+" baby name lucky no, "+origin+" name meaning, "+gender+" name details"
   const meta = {
     title: title,
     description: des,

@@ -245,7 +245,7 @@ module.exports = {
 
         ///////////////////////////////////////// section meta
 
-    // Add new Meta
+    // Add new Meta Np
     addMeta: (data) => {
         return new promise(async (resolve, reject) => {
             console.log(data.id);
@@ -265,6 +265,62 @@ module.exports = {
                else{
                 console.log('adding new meta');
                 db.get().collection(collection.Meta).insertOne(data).then(() => {
+                    resolve('Meta added Successfully')
+                })
+               }
+                    
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    },
+     // Add new Meta Gp
+     addMetaGp: (data) => {
+        return new promise(async (resolve, reject) => {
+            console.log(data.id);
+            try {
+               if (data.id) {
+                console.log('updating meta');
+                db.get().collection(collection.MetaGp).updateOne({ "_id": ObjectID(data.id)}, {
+                    $set: {
+                        title: data.title,
+                        des: data.des,
+                    }
+                }).then(() => {
+                    resolve('Meta updated Successfully')
+                })
+               }
+               else{
+                console.log('adding new meta');
+                db.get().collection(collection.MetaGp).insertOne(data).then(() => {
+                    resolve('Meta added Successfully')
+                })
+               }
+                    
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    },
+     // Add new Meta Ep
+     addMetaEp: (data) => {
+        return new promise(async (resolve, reject) => {
+            console.log(data.id);
+            try {
+               if (data.id) {
+                console.log('updating meta');
+                db.get().collection(collection.MetaEp).updateOne({ "_id": ObjectID(data.id)}, {
+                    $set: {
+                        title: data.title,
+                        des: data.des,
+                    }
+                }).then(() => {
+                    resolve('Meta updated Successfully')
+                })
+               }
+               else{
+                console.log('adding new meta');
+                db.get().collection(collection.MetaEp).insertOne(data).then(() => {
                     resolve('Meta added Successfully')
                 })
                }

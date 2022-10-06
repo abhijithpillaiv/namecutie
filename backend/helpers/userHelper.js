@@ -123,6 +123,20 @@ module.exports = {
             resolve(Meta)
         })
     },
+       // Meta Gp
+       getMetaGp: () => {
+        return new promise(async (resolve, reject) => {
+            let Meta = await db.get().collection(collection.MetaGp).find().toArray()
+            resolve(Meta)
+        })
+    },
+       // Meta Ep
+       getMetaEp: () => {
+        return new promise(async (resolve, reject) => {
+            let Meta = await db.get().collection(collection.MetaEp).find().toArray()
+            resolve(Meta)
+        })
+    },
     // Ads
     getAds: () => {
         return new promise(async (resolve, reject) => {

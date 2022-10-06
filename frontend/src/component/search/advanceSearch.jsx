@@ -23,6 +23,7 @@ const AdvanceSearch = ({setdata, ethni, hover, sethover }) => {
   ethni.map((val) => ethtemp.push(val.value))
 
   const searchHandler = () => {
+    setdata(false)
     if (selected.length!==0) {
       selected.map((val) => eth.push(val.value))
       axios

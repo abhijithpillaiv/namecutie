@@ -280,5 +280,17 @@ router.post('/addMeta', function (req, res) {
     res.json(response)
   })
 });
+// Add Meta Gp
+router.post('/addMetaGp', function (req, res) {
+  adminHelper.addMetaGp(req.body).then((response) => {
+    res.json(response)
+  })
+});
+// Add Meta Ep
+router.post('/addMetaEp', function (req, res) {
+  adminHelper.addMetaEp(req.body).then((response) => {
+    res.json(response)
+  })
+});
 
 module.exports = router;

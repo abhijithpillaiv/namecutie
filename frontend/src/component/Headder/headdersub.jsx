@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./headder.css";
-import Search from "../search/search";
 import {
   CDropdown,
   CDropdownToggle,
@@ -34,7 +33,7 @@ export default function Headder({props}) {
           pageCount: 0,
           currentData: [],
         })
-  }, [serchName]);
+  }, [serchName,]);
 
   //pagination
    const [pagination, setPagination] = useState({
@@ -147,7 +146,7 @@ export default function Headder({props}) {
         </div> */}
         <div className="head col-4">
           <Link to={{ pathname: "/names/mostLiked" }}>
-            <span className="letter">Most liked</span>
+            <span className="letter">Trending Names</span>
           </Link>
         </div>
       </div>

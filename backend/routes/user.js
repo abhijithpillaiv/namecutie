@@ -92,9 +92,21 @@ router.get('/getAds', ((req, res) => {
     res.send(response)
   })
 }))
-// Get Ads
+// Get Meta
 router.get('/getMeta', ((req, res) => {
   userHelper.getMeta().then((response) => {
+    res.send(response)
+  })
+}))
+// Get Meta Gp
+router.get('/getMetaGp', ((req, res) => {
+  userHelper.getMetaGp().then((response) => {
+    res.send(response)
+  })
+}))
+// Get Meta Ep
+router.get('/getMetaEp', ((req, res) => {
+  userHelper.getMetaEp().then((response) => {
     res.send(response)
   })
 }))

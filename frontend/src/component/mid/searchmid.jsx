@@ -17,9 +17,7 @@ export default function Midsingle({ data }) {
 
   useEffect(() => {
     setprogress(false);
-    setsec1(null);
-    setsec2(null);
-    setsec3(null);
+
     if (data) {
       const len = data.length;
       if (len < 10) {
@@ -34,6 +32,7 @@ export default function Midsingle({ data }) {
       }
     }
     setprogress(true);
+
   }, [data]);
   const meta = {
     title: "Search result",

@@ -12,6 +12,8 @@ module.exports={
     notice:'notice',
     Ads:'ads',
     Meta:'meta',
+    MetaGp:'metagp',
+    MetaEp:'metaep',
     ethni:'ethnic',
 
 

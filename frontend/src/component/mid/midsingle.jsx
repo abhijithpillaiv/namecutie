@@ -19,10 +19,9 @@ export default function Midsingle({ mid }) {
   const [sec1, setsec1] = useState(null);
   const [sec2, setsec2] = useState(null);
   const [sec3, setsec3] = useState(null);
+  const [title, settitle] = useState('');
+  const [des, setdes] = useState('');
 
-useEffect(() => {
-  console.log(toggle);
-}, [toggle]);
   useEffect(() => {
     if (mid === "A" ||mid ==="B" ||mid ==="C"||mid ==="D"||mid ==="E"||mid ==="F"||mid ==="G"||mid ==="H"||mid ==="I"||mid ==="J"||mid ==="K"||mid ==="L"||mid ==="M"||mid ==="N"||mid ==="O"||mid ==="P"||mid ==="Q"||mid ==="R"||mid ==="S"||mid ==="T"||mid ==="U"||mid ==="V"||mid ==="W"||mid ==="X"||mid ==="Y"||mid ==="Z") {
       console.log('in alphabet');
@@ -49,6 +48,16 @@ useEffect(() => {
     }else{
       settoggle(0)
       setprogress(false)
+      axios.get(collection.port+'api/getmetaGp').then((res)=>{
+        if (res.data.length!==0) {
+          if (res.data[0].title) {
+            settitle(res.data[0].title)
+          }
+          if (res.data[0].des) {
+            setdes(res.data[0].des)
+          } 
+        }
+      })
       if (mid === "BOYS") {
         axios.get(collection.port + "api/getNames/Boy").then((res) => {
             setsec1(null);setsec2(null);setsec3(null)
@@ -114,13 +123,24 @@ useEffect(() => {
               setsec3(res.data.slice(count, len));
             }
             settemp(' Ethnic : ')
-            setprogress(true)
           });
+          axios.get(collection.port+'api/getmetaEp').then((res)=>{
+            if (res.data.length!==0) {
+              if (res.data[0].title) {
+                settitle(res.data[0].title)
+              }
+              if (res.data[0].des) {
+                setdes(res.data[0].des)
+              } 
+            }
+          })
+          setprogress(true)
       }
     }
   }, [mid]);
   const meta = {
-    title: toggle?"Names with "+mid:"Names of "+mid 
+    title: toggle?"Names with "+mid:title,
+    description: des, 
   };
   return progress? (<DocumentMeta {...meta}>
     <div className="event-schedule-area-two bg-color pad100">
