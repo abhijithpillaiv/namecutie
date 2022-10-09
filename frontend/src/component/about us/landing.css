@@ -1,0 +1,20 @@
+.my{
+    /* background-color: rgb(250, 219, 225); */
+    /* background-color: #8ba7f3; */
+    background-color: whitesmoke;
+    padding: 0%;
+}
+.logo{
+    height: 100px;
+    position: relative;
+    width: auto;
+}
+.head-top{
+	font-family: "Comfortaa", sans-serif;
+	position: relative;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-right: 10px;
+  padding-bottom: 3px;
+  font-size:large;
+} 

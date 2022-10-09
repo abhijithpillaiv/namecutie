@@ -293,4 +293,12 @@ router.post('/addMetaEp', function (req, res) {
   })
 });
 
+////////////////////////////////////////////////About
+// add about
+router.post('/addAbout', function (req, res) {
+  adminHelper.addAbout(req.body).then((response) => {
+    res.json(response)
+  })
+});
+
 module.exports = router;

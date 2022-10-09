@@ -110,7 +110,12 @@ router.get('/getMetaEp', ((req, res) => {
     res.send(response)
   })
 }))
-
+// Get About
+router.get('/about', ((req, res) => {
+  userHelper.getAbout().then((response) => {
+    res.send(response)
+  })
+}))
 // Add like
 router.post('/like', ((req, res) => {
   console.log(req.body);

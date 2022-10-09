@@ -13,6 +13,7 @@
     padding-top: 10px;
     padding-bottom: 50px;
     padding-left: 25px;
+    font-size: 25px;
 }
 .meaning,.gender,.origin{
     color: navy;
@@ -20,7 +21,7 @@
     margin-left: 10px;
     padding-bottom: 20px;
     font-weight: bolder;
-    font-size:large
+    font-size:23px
 }
 .heart{
     margin-left: 100px;
@@ -54,7 +55,17 @@
 
 }
 .ans{
-    font-weight: lighter;
-    font-size: 20px;
+    /* font-weight: bold; */
+    font-size: 25px;
     text-align:left;
+}
+.eth{
+    font-size: 18px;
+    font-weight: normal;
+    color: black;
+    
+}
+.eth:hover{
+    color: blue;
+    text-decoration: underline;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Headder from "../Headder/headder";
-import Mid from "../mid/mid";
+import Message from "../message/Message";
 import Strip from "../strip/strip";
 import Fotter from "../fotter/fotter";
 import Search from "../search/search";
@@ -40,6 +40,7 @@ function Landing() {
   }, [letter]);
   useEffect(() => {
     setprogress(false)
+    console.log("data is "+data);
     if (data) {
       sethover(null);
     }
@@ -107,11 +108,14 @@ function Landing() {
          </div>
        </div> }
           <div className="row">
-            <div className="col-lg-3 col-sm-12">
+            <div className="col-lg-3 col-sm-2">
               <Ads />
             </div>
-            <div className="col-lg-9 col-sm-12">
-              {data ? <SearchMid data={data} /> : <Mid mid={letter} />}
+            <div className="col-lg-6 col-sm-8">
+              <Message/>
+            </div>
+            <div className="col-lg-3 col-sm-2">
+              <Ads />
             </div>
           </div>
         </search.Provider>

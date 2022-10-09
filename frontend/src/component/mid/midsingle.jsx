@@ -8,6 +8,7 @@ import Lodr from "../../static/lodr";
 import "./page.css";
 import { search } from "../../context/search";
 import DocumentMeta from "react-document-meta";
+import "./mid.css"
 
 export default function Midsingle({ mid }) {
 
@@ -22,15 +23,28 @@ export default function Midsingle({ mid }) {
   const [title, settitle] = useState('');
   const [des, setdes] = useState('');
 
+
+
+  function n(val) {
+    axios.get(collection.port+'api/'+val).then((res)=>{
+      if (res.data.length!==0) {
+        if (res.data[0].title) {
+          settitle(res.data[0].title)
+        }
+        if (res.data[0].des) {
+          setdes(res.data[0].des)
+        } 
+      }
+    })
+  }
   useEffect(() => {
+    setsec1(null);setsec2(null);setsec3(null)
     if (mid === "A" ||mid ==="B" ||mid ==="C"||mid ==="D"||mid ==="E"||mid ==="F"||mid ==="G"||mid ==="H"||mid ==="I"||mid ==="J"||mid ==="K"||mid ==="L"||mid ==="M"||mid ==="N"||mid ==="O"||mid ==="P"||mid ==="Q"||mid ==="R"||mid ==="S"||mid ==="T"||mid ==="U"||mid ==="V"||mid ==="W"||mid ==="X"||mid ==="Y"||mid ==="Z") {
-      console.log('in alphabet');
       settoggle(1)
       setprogress(false)
       axios
       .get(collection.port + "api/getNames/alphabet/" + mid)
       .then((res) => {
-          setsec1(null);setsec2(null);setsec3(null)
         const len = res.data.length;
         if (len < 10) {
           setsec1(res.data);
@@ -48,19 +62,9 @@ export default function Midsingle({ mid }) {
     }else{
       settoggle(0)
       setprogress(false)
-      axios.get(collection.port+'api/getmetaGp').then((res)=>{
-        if (res.data.length!==0) {
-          if (res.data[0].title) {
-            settitle(res.data[0].title)
-          }
-          if (res.data[0].des) {
-            setdes(res.data[0].des)
-          } 
-        }
-      })
+     
       if (mid === "BOYS") {
         axios.get(collection.port + "api/getNames/Boy").then((res) => {
-            setsec1(null);setsec2(null);setsec3(null)
           const len = res.data.length;
           if (len < 10) {
             setsec1(res.data);
@@ -72,11 +76,11 @@ export default function Midsingle({ mid }) {
             count = temp;
             setsec3(res.data.slice(count, len));
           }
+          n('getmetaGp')
           setprogress(true)
         });
       } else if (mid === "GIRLS") {
         axios.get(collection.port + "api/getNames/Girl").then((res) => {
-            setsec1(null);setsec2(null);setsec3(null)
           const len = res.data.length;
           if (len < 10) {
             setsec1(res.data);
@@ -88,11 +92,11 @@ export default function Midsingle({ mid }) {
             count = temp;
             setsec3(res.data.slice(count, len));
           }
+          n('getmetaGp')
           setprogress(true)
         });
       } else if (mid === "UNISEX") {
         axios.get(collection.port + "api/getNames/Unisex").then((res) => {
-            setsec1(null);setsec2(null);setsec3(null)
           const len = res.data.length;
           if (len < 10) {
             setsec1(res.data);
@@ -104,13 +108,14 @@ export default function Midsingle({ mid }) {
             count = temp;
             setsec3(res.data.slice(count, len));
           }
+          n('getmetaGp')
           setprogress(true)
 
         });
 
       }else {
           axios.get(collection.port + "api/getNames/ethnic/"+mid).then((res) => {
-              setsec1(null);setsec2(null);setsec3(null)
+
             const len = res.data.length;
             if (len < 10) {
               setsec1(res.data);
@@ -124,16 +129,7 @@ export default function Midsingle({ mid }) {
             }
             settemp(' Ethnic : ')
           });
-          axios.get(collection.port+'api/getmetaEp').then((res)=>{
-            if (res.data.length!==0) {
-              if (res.data[0].title) {
-                settitle(res.data[0].title)
-              }
-              if (res.data[0].des) {
-                setdes(res.data[0].des)
-              } 
-            }
-          })
+          n('getmetaEp')
           setprogress(true)
       }
     }

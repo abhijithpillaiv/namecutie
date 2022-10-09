@@ -6,6 +6,8 @@ import Namepage from "./component/nameDetails/namePageLanding";
 // import BlogSingle from './component/blog/components/singlePost/SinglePost'
 import MostLiked from './component/mostLiked/mostLiked'
 import Message from "./component/message/Message";
+import Contact from "./component/contactus/contact"
+import About from './component/about us/aboutus'
 import { Route, Routes } from "react-router-dom";
 
 import { CookiesProvider } from 'react-cookie';
@@ -23,6 +25,10 @@ function App() {
       <Route exact element={<BlogSingle/>} path="/blog/singleBlog/:id" />  */}
       <Route exact element={<MostLiked/>} path="/names/mostLiked" /> 
       <Route exact element={<Message/>} path="/messages" /> 
+      <Route exact element={<Contact/>} path="/contact" />
+      <Route exact element={<About/>} path="/about" />
+
+
       </Routes>
       </CookiesProvider>
 

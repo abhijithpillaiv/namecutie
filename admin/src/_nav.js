@@ -36,6 +36,11 @@ const _nav = [
   },
   {
     component: CNavItem,
+    name: 'About',
+    to: '/about',
+  },
+  {
+    component: CNavItem,
     name: 'Messages',
     to: '/messages',
   },

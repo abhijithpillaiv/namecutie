@@ -330,4 +330,31 @@ module.exports = {
             }
         })
     },
+     // Add new About
+     addAbout: (data) => {
+        return new promise(async (resolve, reject) => {
+            console.log(data.id);
+            try {
+               if (data.id) {
+                console.log('updating About');
+                db.get().collection(collection.About).updateOne({ "_id": ObjectID(data.id)}, {
+                    $set: {
+                        content: data.content,
+                    }
+                }).then(() => {
+                    resolve('About updated Successfully')
+                })
+               }
+               else{
+                console.log('adding new About');
+                db.get().collection(collection.About).insertOne(data).then(() => {
+                    resolve('About added Successfully')
+                })
+               }
+                    
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    },
 }

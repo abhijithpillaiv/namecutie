@@ -12,6 +12,8 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { port } from "../../context/collection";
 import Ads from "../ads/ads";
+import { Link } from "react-router-dom";
+
 export default function Details({ props }) {
   const [cookies, setCookie] = useCookies(["like"]);
   const [isClick, setClick] = useState(false);
@@ -101,9 +103,9 @@ export default function Details({ props }) {
   return progress?(
     <DocumentMeta {...meta}>
       <div className="container-fluid">
-        <div className="namepageheader">
-          <div className="row">
-            <div className="col-11">
+        <div className="row">
+          <div className="col-10">
+            <div className="namepageheader ">
               <div className="name">
                 {name}
                 {isClick ? (
@@ -168,22 +170,22 @@ export default function Details({ props }) {
                   style={{ paddingLeft: "25px" }}
                   className="col-lg-10 col-sm-12"
                 >
-                  <span className="ans">
+                  <span >
                     {props.ethni
                       ? props.ethni.map((name) => (
-                          <span
-                            style={{ fontSize: "15px", fontWeight: "normal" }}
+                        <Link key={name} to={{ pathname: "/nameOf/" + name }}>
+                      <span
+                            style={{color:'black'}}
                           >
                             {" "}
-                            {name} ,
+                            <span className="eth">{name}</span> ,
                           </span>
+                    </Link>
+                          
                         ))
                       : null}
                   </span>{" "}
                 </div>
-              </div>
-              <div style={{ paddingTop: "20px" }}>
-                <Ads />
               </div>
               <div
                 style={{ cursor: "pointer", color: "blue", textAlign: "left" }}
@@ -196,6 +198,7 @@ export default function Details({ props }) {
               {toggler ? <Message settoggler={settoggler} /> : null}
             </div>
           </div>
+          <div className="col-2"><Ads/></div>
         </div>
       </div>
     </DocumentMeta>

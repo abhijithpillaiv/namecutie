@@ -144,6 +144,13 @@ module.exports = {
             resolve(Ads)
         })
     },
+      // About
+      getAbout: () => {
+        return new promise(async (resolve, reject) => {
+            let About = await db.get().collection(collection.About).find().toArray()
+            resolve(About)
+        })
+    },
 
     // like
     setLike: (body) => {

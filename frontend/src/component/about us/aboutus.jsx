@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Headder from "../Headder/headder";
-import Mid from "../mid/mid";
 import Strip from "../strip/strip";
 import Fotter from "../fotter/fotter";
 import Search from "../search/search";
@@ -16,6 +15,7 @@ import { search } from "../../context/search";
 import Ads from "../ads/ads";
 
 function Landing() {
+    const [about, setabout] = useState(null);
   const [notice, setnotice] = useState(null);
 
   useEffect(() => {
@@ -26,6 +26,11 @@ function Landing() {
           setnotice(res.data)
         }
       })
+        axios.get(port+'api/about').then((res)=>{
+            if (res.data.length!==0) {
+                setabout(res.data[0].content)
+            }
+        })
     setprogress(true)
   }, []);
   let { letter } = useParams();
@@ -40,6 +45,7 @@ function Landing() {
   }, [letter]);
   useEffect(() => {
     setprogress(false)
+    console.log("data is "+data);
     if (data) {
       sethover(null);
     }
@@ -107,11 +113,26 @@ function Landing() {
          </div>
        </div> }
           <div className="row">
-            <div className="col-lg-3 col-sm-12">
+            <div className="col-lg-3 col-sm-2">
               <Ads />
             </div>
-            <div className="col-lg-9 col-sm-12">
-              {data ? <SearchMid data={data} /> : <Mid mid={letter} />}
+            <div className="col-lg-6 col-sm-8">
+            <div>
+                   <div className="cardz height-auto">
+                    <div className="heading-layout1">
+                        <div className="item-title">
+                            <h2>About us</h2>
+                        </div>
+                    </div>
+
+                        <div className="row">
+                            {about?<p>{about}</p>:<p>About updating soon...</p>}
+                        </div>
+            </div>
+        </div>
+            </div>
+            <div className="col-lg-3 col-sm-2">
+              <Ads />
             </div>
           </div>
         </search.Provider>
@@ -124,3 +145,4 @@ function Landing() {
 }
 
 export default Landing;
+

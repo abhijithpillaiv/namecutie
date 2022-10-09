@@ -62,8 +62,8 @@ export default function Namepad({ props }) {
   }
   return props ?
     <tr  style={{width:'100%'}}>
-      <td onClick={clickhandler} style={{fontFamily:"sans-serif",fontSize:'18px',fontWeight:'bold'}} >{props.name}</td>
-      <td onClick={clickhandler}style={{fontFamily:"cursive",fontSize:'15px',fontWeight:'normal'}}>{props.meaning}</td>
+      <td onClick={clickhandler} style={{fontFamily:"sans-serif",fontSize:'20px',fontWeight:'bold'}} >{props.name}</td>
+      <td onClick={clickhandler}style={{fontFamily:"cursive",fontSize:'17px',fontWeight:'normal'}}>{props.meaning}</td>
       {/* <td style={{color:'red'}}>{like} {like===1?<div >Like</div>:<div>Likes</div>}</td> */}
       {/* <td  onClick={() => likeclickhandler()}>{isClick ? (
                   <img

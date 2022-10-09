@@ -25,6 +25,7 @@ const editNotice = React.lazy(() => import('./views/notice/editNotice'))
 const changePassword = React.lazy(() => import('./views/settings/changePassword'))
 const logout = React.lazy(() => import('./views/settings/logout'))
 
+const about = React.lazy(() => import('./views/about/about'))
 
 
 
@@ -70,6 +71,7 @@ const routes = [
   { path: '/blogs/viewBlogs', name: 'blog / View blogs', element: viewBlogs },
 
   { path: '/ads', name: 'Ads', element: ads },
+  { path: '/about', name: 'About', element: about },
   { path: '/meta', name: 'Meta Data', element: meta },
 
   { path: '/messages', name: 'Messages', element: message },

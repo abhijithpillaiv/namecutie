@@ -15,6 +15,7 @@ module.exports={
     MetaGp:'metagp',
     MetaEp:'metaep',
     ethni:'ethnic',
+    About:'About',
 
 
     user:'users',

@@ -68,7 +68,7 @@ export default function Headder({props}) {
  return pagination.currentData ? (
     <div className="container-fluid">
       <div className="head-down row">
-        <div className="head col-4">
+        <div className="head col-lg-3 col-md-3 col-sm-3">
           <CNavbarNav role="string">
             <CDropdown
               autoClose="outside"
@@ -119,7 +119,7 @@ export default function Headder({props}) {
             </CDropdown>
           </CNavbarNav>
         </div>
-        <div className="head col-4">
+        <div className="head col-lg-3 col-md-3 col-sm-3">
           <CNavbarNav role="string">
             <CDropdown placement="bottom" variant="nav-item">
               <CDropdownToggle>
@@ -144,9 +144,19 @@ export default function Headder({props}) {
         {/* <div className="head col-2">
         <Link to={{pathname:'/blog'}}><span style={{paddingLeft:'10px'}} className="letter">Blogs</span></Link>           
         </div> */}
-        <div className="head col-4">
+        <div style={{paddingTop:'17px'}} className="head col-lg-2 col-md-2 col-sm-2">
           <Link to={{ pathname: "/names/mostLiked" }}>
             <span className="letter">Trending Names</span>
+          </Link>
+        </div>
+        <div style={{paddingTop:'17px'}} className="head col-lg-2 col-md-2 col-sm-2">
+          <Link to={{ pathname: "/contact" }}>
+            <span className="letter">Contact us</span>
+          </Link>
+        </div>
+        <div style={{paddingTop:'17px'}} className="head col-lg-2 col-md-2 col-sm-2">
+          <Link to={{ pathname: "/about" }}>
+            <span className="letter">About us</span>
           </Link>
         </div>
       </div>
